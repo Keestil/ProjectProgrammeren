@@ -20,6 +20,7 @@ Ik heb nooit met sprites gewerkt en werk nu ook voor het eerst in android studio
 - een leaderboard maken.
 
 Planning:
+
 week 1: sprites maken en achtergrond maken, ook proberen sprites te laten bewegen!
 
 week 2: Sprites in de lucht laten hangen en zwaartekracht maken, ook klikken moet dan werken. Verder moeten projectielen al
