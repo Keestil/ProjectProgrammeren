@@ -1,5 +1,5 @@
 # ProjectProgrammeren
-dit is mijn project
+Dit is mijn project
 
 App-plan:
 
