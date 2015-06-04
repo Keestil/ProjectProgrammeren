@@ -14,18 +14,48 @@ import android.view.SurfaceView;
  * Created by k on 3-6-2015.
  */
 
-public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
+public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+    private Sprite sprite;
+    private SurfaceHolder holder;
+    private GamePanelThread thread;
+    private Bitmap bmp;
+    private Bitmap background;
+    private Bitmap scaledbmp;
+    private int xposition = 0;
+    private int xspeed = 1;
 
-    SurfaceHolder holder;
-    GamePanelThread thread;
-
-    public GamePanel(Context context) {
+    public GamePanel(Context context,int resource) {
         super(context);
         //TODO Auto generated constructor stub
+        bmp = BitmapFactory.decodeResource(getResources(), resource);
+        sprite = new Sprite(this,bmp);
         holder = getHolder();
         holder.addCallback(this);
-        thread = new GamePanelThread();
+        thread = new GamePanelThread(holder, this);
         setFocusable(true);
+    }
+
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        background = BitmapFactory.decodeResource(getResources(), R.mipmap.cool_background);
+        float scale = (float)background.getHeight()/(float)getHeight();
+        int newWidth = Math.round(background.getWidth()/scale);
+        int newHeight = Math.round(background.getHeight()/scale);
+        scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
+
+        thread.setRunning(true);
+        thread.start();
+    }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.drawBitmap(scaledbmp,0,0,null);
+        sprite.onDraw(canvas);
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format,
+                               int width, int height) {
     }
 
     @Override
@@ -40,24 +70,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             }
         }
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
-        }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        thread.setRunning(true);
-        thread.start();
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format,
-                               int width, int height) {
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
     }
 }
+
+
 

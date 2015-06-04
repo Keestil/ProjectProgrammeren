@@ -13,16 +13,12 @@ import android.widget.ListView;
 public class CharacterActivity extends ListActivity {
 
     // Pictures i want to use of the folder mipmap-mpdi.
-    Integer[] imgid = {R.mipmap.flappy, R.mipmap.superman, R.mipmap.kirby};
+    Integer[] imgid = {R.mipmap.angle_sprite, R.mipmap.flyingwoman_sprite, R.mipmap.flyingbluedragon_sprite};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character2);
-
-        // Importing data sent from other activities
-        Bundle extras = this.getIntent().getExtras();
-
         CustomListAdapter adapter = new CustomListAdapter(this, imgid);
         setListAdapter(adapter);
     }

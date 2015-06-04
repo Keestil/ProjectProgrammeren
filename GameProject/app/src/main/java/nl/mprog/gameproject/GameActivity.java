@@ -5,22 +5,27 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 
 
 public class GameActivity extends Activity {
 
+    int resource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle extras = this.getIntent().getExtras();
+        resource = extras.getInt("Image");
         //scherm wordt full screen
         //merk op dat ik alleen fullscreen wil veranderen waardoor de mask
         //hetzelfde is als de flag!
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //Op de Gamepanel gaat de game gemaakt worden
-        setContentView(new GamePanel(this));
+        setContentView(new GamePanel(this,resource));
     }
 
     @Override
