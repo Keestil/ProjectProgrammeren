@@ -6,52 +6,73 @@ import android.view.SurfaceHolder;
 
 public class GamePanelThread extends Thread {
 
-    private int FPS = 10;
+    private int FPS = 30;
+    private double averagefps;
     private boolean running;
     private SurfaceHolder surfaceholder;
     private GamePanel game;
 
-    public GamePanelThread(SurfaceHolder surfaceholder, GamePanel game){
+    public GamePanelThread(SurfaceHolder surfaceholder, GamePanel game) {
 
         super();
         this.surfaceholder = surfaceholder;
         this.game = game;
 
     }
+
     public void setRunning(boolean running) {
         this.running = running;
     }
 
     @Override
-    public void run(){
+    public void run() {
         long startTime;
         long sleepTime;
         //tijd van gameloop
         long ticksPS = 1000 / FPS;
-        while(running){
+        long averageFPS;
+        long timeinMill;
+        long totalTime = 0;
+        int counter = 0;
+
+        while (running) {
             startTime = System.nanoTime();
             Canvas canvas = null;
-        try {
-            canvas = surfaceholder.lockCanvas();
-            synchronized (surfaceholder)
-            {
-                game.onDraw(canvas);
+            try {
+                canvas = surfaceholder.lockCanvas();
+                synchronized (surfaceholder) {
+                    this.game.update();
+                    this.game.onDraw(canvas);
+                }
+            } catch (Exception e) {
+
             }
-        } finally {
-            if (canvas != null) {
-                surfaceholder.unlockCanvasAndPost(canvas);
+            finally{
+                if(canvas!=null)
+                {
+                    try {
+                        surfaceholder.unlockCanvasAndPost(canvas);
+                    }
+                    catch(Exception e){e.printStackTrace();}
+                }
             }
-        sleepTime = ticksPS - (System.nanoTime()- startTime);//laatste deel is hoeveel seconden om 1 loop om te gaan;
-        try{
-            if(sleepTime>0) {
+
+            timeinMill = (System.nanoTime() - startTime) / 1000000;
+            sleepTime = ticksPS - timeinMill; //laatste deel is hoeveel seconden om 1 loop om te gaan;
+
+            try{
                 this.sleep(sleepTime);
-            } else {
-                sleep(10);
+            }catch(Exception e){}
+
+            totalTime += System.nanoTime()-startTime;
+            counter ++;
+            if(counter == FPS)
+            {
+                averageFPS = 1000/((totalTime/counter)/1000000);
+                counter =0;
+                totalTime = 0;
+                System.out.println(averageFPS);
             }
-            } catch (Exception e) {}
         }
-    }
-
-
     }
 }

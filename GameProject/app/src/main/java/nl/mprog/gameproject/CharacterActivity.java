@@ -13,7 +13,7 @@ import android.widget.ListView;
 public class CharacterActivity extends ListActivity {
 
     // Pictures i want to use of the folder mipmap-mpdi.
-    Integer[] imgid = {R.mipmap.angle_sprite, R.mipmap.flyingwoman_sprite, R.mipmap.flyingbluedragon_sprite};
+    Integer[] imgid = {R.mipmap.angle_sprite, R.mipmap.flyingwoman_sprite, R.mipmap.monster_girl_sprite};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
