@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     //here we just make the width and height, adjust this if playing on another mobile!
-    public static final int WIDTH = 1000;
+    public static final int WIDTH = 900;
     public static final int HEIGHT = 1800;
 
     //the Timers
@@ -36,6 +36,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     // the rest
     private int best;
+    private int score = 0;
     private ArrayList<Missles> missles = new ArrayList<Missles>();
     private boolean newgame = false;
     private Random random = new Random();
@@ -125,7 +126,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 // Does not work yet
                 if(missles.get(i).getX() == player.getX()){
-                    player.score = player.score + 1;
+                    score ++;
                 }
                 //If the missles and the player touch, the player dies and the game is over
                 if (touch(missles.get(i), player)) {
@@ -194,8 +195,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         text = new Paint();
         text.setColor(Color.BLACK);
         text.setTextSize(30);
-        canvas.drawText("SCORE: " + player.score,40,HEIGHT - 40,text);
-        canvas.drawText("BEST: " + 0, WIDTH - 40, HEIGHT - 40, text);
+        canvas.drawText("SCORE: " + score,100,HEIGHT - 100,text);
+        canvas.drawText("BEST: " + 0, WIDTH - 100, HEIGHT - 100, text);
+        if(player.isPlaying() == false){
+            canvas.drawText("Touch the screen to start the game",WIDTH/2,HEIGHT/2,text);
+        }
     }
 
     //Happens when player starts over again.

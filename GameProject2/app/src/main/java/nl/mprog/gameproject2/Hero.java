@@ -8,7 +8,7 @@ public class Hero extends Object{
     private GamePanel game;
     private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
-    int score;
+    private int score;
     private long startTime;
     private boolean up;
     private boolean playing;
@@ -71,6 +71,10 @@ public class Hero extends Object{
 
     public int getScore(){
         return score;
+    }
+
+    public void setScore(int newScore){
+        score = newScore;
     }
 
     public boolean isPlaying(){
