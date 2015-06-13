@@ -20,6 +20,7 @@ import java.util.Random;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 1800;
+    private int best;
     private Hero player;
     private Bitmap background;
     private Bitmap scaledbmp;
@@ -118,6 +119,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     break;
                 }
             }
+        } if(!player.isPlaying()){
+            newGame();
         }
     }
 
@@ -167,7 +170,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void newGame(){
+        missles.clear();
         newgame = true;
+        player.resetScore();
+        player.setY(HEIGHT/2);
+        if(player.getScore()>best) {
+            best = player.getScore();
+        }
     }
 
 }

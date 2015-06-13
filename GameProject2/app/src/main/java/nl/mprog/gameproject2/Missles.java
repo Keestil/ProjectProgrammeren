@@ -19,7 +19,7 @@ public class Missles extends Object{
         this.y = y;
         width = w;
         height = h;
-        speed = 7;
+        speed = 20;
 
 
         Bitmap[] image = new Bitmap[frames];
@@ -45,7 +45,6 @@ public class Missles extends Object{
 
     @Override
     public int getWidth() {
-        //offset slightly for more realistic collision detection
         return width-10;
     }
 
