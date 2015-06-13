@@ -22,15 +22,15 @@ public class Missles extends Object{
         speed = 20;
 
 
-        Bitmap[] image = new Bitmap[frames];
+        Bitmap[] cropimage = new Bitmap[frames];
         spritesheet = bmp;
 
-        for(int i = 0; i<image.length;i++) {
-            image[i] = Bitmap.createBitmap(spritesheet, 0, i*height, width, height);
+        for(int i = 0; i<cropimage.length;i++) {
+            cropimage[i] = Bitmap.createBitmap(spritesheet, 0, i*height, width, height);
         }
 
-        animation.setFrames(image);
-        animation.setWaittime(100);
+        animation.setFrames(cropimage);
+        animation.setWaitTime(10);
 
     }
     public void update() {
@@ -40,7 +40,7 @@ public class Missles extends Object{
     public void draw(Canvas canvas) {
         try{
             canvas.drawBitmap(animation.getImage(),x,y,null);
-        }catch(Exception e){Log.d(">", "except e" + e);}
+        }catch(Exception e){}
     }
 
     @Override

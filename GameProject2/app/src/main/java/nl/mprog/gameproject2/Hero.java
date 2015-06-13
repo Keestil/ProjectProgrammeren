@@ -6,12 +6,12 @@ import android.graphics.Canvas;
 
 public class Hero extends Object{
     private GamePanel game;
+    private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
-    private int score;
+    int score;
+    private long startTime;
     private boolean up;
     private boolean playing;
-    private Spriteslide animation = new Spriteslide();
-    private long startTime;
 
     public Hero(Bitmap bmp, int w, int h, int frames) {
 
@@ -26,32 +26,34 @@ public class Hero extends Object{
         Bitmap[] cropimage = new Bitmap[frames];
         spritesheet = bmp;
 
+        // this loop cropes the immages
         for (int i = 0; i < cropimage.length; i++) {
             cropimage[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
         }
 
         animation.setFrames(cropimage);
-        animation.setWaittime(10);
+        animation.setWaitTime(10);
         startTime = System.nanoTime();
 
     }
 
+    //boolean check for flying.
     public void setUp(boolean b){
-        up = b;}
+        up = b;
+    }
 
     public void update() {
-        long elapsed = (System.nanoTime()-startTime)/1000000;
-        if(elapsed>100) {
-            score++;
-            startTime = System.nanoTime();
-        }
+        //updating the animation
         animation.update();
 
+        //Flying up or down
         if(up){
             y_move = -20;
         }if(!up){
             y_move = 20;
         }
+
+        //Checking the bounds
         if (y > game.HEIGHT - spritesheet.getHeight()-y_move) {
             y_move = 0;
         }
@@ -62,6 +64,7 @@ public class Hero extends Object{
         y_move = 0;
     }
 
+    // here we draw the anymation
     public void draw(Canvas canvas) {
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }

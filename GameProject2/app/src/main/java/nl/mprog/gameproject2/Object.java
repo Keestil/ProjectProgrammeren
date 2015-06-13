@@ -29,7 +29,9 @@ public abstract class Object {
     public int getWidth() {
         return width;
     }
-    //all these previous functions are pretty obvious,
+
+    //all these previous functions are pretty obvious, this one however gives one the recangle
+    //that the sprite covers.
     public Rect getRectangle() {
         return new Rect(x, y, x+width, y+height);
     }

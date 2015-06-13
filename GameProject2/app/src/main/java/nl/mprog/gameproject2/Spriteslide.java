@@ -3,6 +3,7 @@ package nl.mprog.gameproject2;
 import android.graphics.Bitmap;
 
 public class Spriteslide {
+
     private Bitmap[] frames;
     private int currentFrame;
     private long startTime;
@@ -17,7 +18,7 @@ public class Spriteslide {
     }
 
     //This is the time we wait between playing frames!
-    public void setWaittime(long w){
+    public void setWaitTime(long w){
         waitTime = w;
     }
 
@@ -29,16 +30,18 @@ public class Spriteslide {
     public void update() {
         long timePassed = (System.nanoTime()-startTime)/1000000;
 
-        //If the time passed our delaytime we want to go to the next frame and start the timer again
+        //If the time passed our waitTime we want to go to the next frame and start the timer again
         if(timePassed>waitTime) {
             currentFrame++;
             startTime = System.nanoTime();
         }
-        //Here we want to
+        //Here we want to start at the first frame again
         if(currentFrame == frames.length){
             currentFrame = 0;
         }
     }
+
+    //These next two functions are pretty obvious
     public Bitmap getImage(){
         return frames[currentFrame];
     }
