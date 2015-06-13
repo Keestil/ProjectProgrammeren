@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.MainThread;
 import android.util.DisplayMetrics;
@@ -13,9 +15,10 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-    public static final int WIDTH = 800;
+    public static final int WIDTH = 1000;
     public static final int HEIGHT = 1800;
     private Hero player;
     private Bitmap background;
@@ -23,7 +26,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private long misslesStarttime;
     private long misslesTimepassed;
-    private ArrayList<Missles> missles;
+    private ArrayList<Missles> missles = new ArrayList<Missles>();
+    private boolean newgame = false;
+    private Random random = new Random();
+    private Paint text;
 
     public GamePanel(Context context) {
         super(context);
@@ -70,7 +76,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 
         //making the player
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter), 65, 25, 3);
+        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter), 66, 40, 3);
 
         //starting the gameloop
         thread.setRunning(true);
@@ -80,34 +86,38 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     //this methods updates the sprite while going through the gameloop, hardest function of all in my opinion
     public void update() {
+
         if (player.isPlaying()) {
             //updating the player
             player.update();
 
             //Check how many time has gone past and making a new missle for
             // each unit of time!
-            //long misslesTimepassed = (System.nanoTime() - misslesStarttime) / 1000000;
-            //if (misslesTimepassed > 2000) {
-                //missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10, HEIGHT / 2, 45, 15, 13));
 
-                //misslesStarttime = System.nanoTime();
-            //}
+            //System.out.println("Making missles");
+            long misslesTimepassed = (System.nanoTime() - misslesStarttime) / 1000000;
+            if (misslesTimepassed > 2000) {
+                int randomNum = random.nextInt(HEIGHT);
+                missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 45, 15, 13));
+
+                misslesStarttime = System.nanoTime();
+            }
             //Updating the missles in our list
-            //for (int i = 0; i < missles.size(); i++) {
-                //missles.get(i).update();
+            for (int i = 0; i < missles.size(); i++) {
+                missles.get(i).update();
                 //If the missles and the player touch, the player dies and the game is over
-                //if (touch(missles.get(i), player)) {
-                    //missles.remove(i);
-                    //player.setPlaying(false);
-                    //break;
-                //}
+                if (touch(missles.get(i), player)) {
+                    missles.remove(i);
+                    player.setPlaying(false);
+                    break;
+                }
 
                 //for memory issues we remove the missles going outside of the screen!
-                //if (missles.get(i).getX() < -100) {
-                    //missles.remove(i);
-                    //break;
-                //}
-            //}
+                if (missles.get(i).getX() < -100) {
+                    missles.remove(i);
+                    break;
+                }
+            }
         }
     }
 
@@ -146,5 +156,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (Missles m : missles) {
             m.draw(canvas);
         }
+        Textview(canvas);
     }
+
+    public void Textview(Canvas canvas){
+        text = new Paint();
+        text.setColor(Color.BLACK);
+        text.setTextSize(30);
+        canvas.drawText("BEST: " + 0, WIDTH - 40, HEIGHT - 40, text);
+    }
+
+    public void newGame(){
+        newgame = true;
+    }
+
 }

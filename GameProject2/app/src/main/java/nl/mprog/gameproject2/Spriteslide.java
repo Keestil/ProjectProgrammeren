@@ -7,7 +7,6 @@ public class Spriteslide {
     private int currentFrame;
     private long startTime;
     private long waitTime;
-    private boolean playedOnce;
 
     //setting up the number of frames i want to play and starting a timer
     //for the update method
@@ -38,7 +37,6 @@ public class Spriteslide {
         //Here we want to
         if(currentFrame == frames.length){
             currentFrame = 0;
-            playedOnce = true;
         }
     }
     public Bitmap getImage(){
@@ -46,8 +44,5 @@ public class Spriteslide {
     }
     public int getFrame(){
         return currentFrame;
-    }
-    public boolean playedOnce(){
-        return playedOnce;
     }
 }

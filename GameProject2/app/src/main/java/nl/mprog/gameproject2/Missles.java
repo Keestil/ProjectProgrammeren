@@ -2,6 +2,7 @@ package nl.mprog.gameproject2;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -39,7 +40,7 @@ public class Missles extends Object{
     public void draw(Canvas canvas) {
         try{
             canvas.drawBitmap(animation.getImage(),x,y,null);
-        }catch(Exception e){}
+        }catch(Exception e){Log.d(">", "except e" + e);}
     }
 
     @Override
