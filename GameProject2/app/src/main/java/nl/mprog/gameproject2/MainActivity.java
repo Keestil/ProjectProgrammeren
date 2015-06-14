@@ -1,20 +1,27 @@
 package nl.mprog.gameproject2;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 
+
 public class MainActivity extends Activity {
+
+    SharedPreferences data;
+    private String filename = "savedstate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        data = getSharedPreferences(filename,0);
         //turn title off
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -22,7 +29,7 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //drawing in the gamePanel class
-        setContentView(new GamePanel(this));
+        setContentView(new GamePanel(this,data));
     }
 
     @Override

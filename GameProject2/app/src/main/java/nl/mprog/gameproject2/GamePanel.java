@@ -1,12 +1,14 @@
 package nl.mprog.gameproject2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.preference.PreferenceManager;
 import android.support.annotation.MainThread;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -30,9 +32,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap background;
     private Bitmap scaledbmp;
 
+    SharedPreferences saveBest;
     // the classes
     private GameThread thread;
     private Hero player;
+    private Missles missle;
 
     // the rest
     private int best;
@@ -42,9 +46,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Random random = new Random();
     private Paint text;
 
-    public GamePanel(Context context) {
+    public GamePanel(Context context,SharedPreferences data) {
         super(context);
 
+        saveBest = data;
         //add the callback to the surfaceholder to intercept events
         getHolder().addCallback(this);
 
@@ -89,7 +94,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 
         //making the player
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter), 66, 40, 3);
+        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter), 70, 40, 3);
 
         //starting the gameloop
         thread.setRunning(true);
@@ -114,7 +119,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             //I like this time so far, if one wants the rockets to go slower/faster adjust this time!
             if (misslesTimepassed > 2000) {
-                int randomNum = random.nextInt(HEIGHT);
+                int randomNum = random.nextInt(HEIGHT - 130);
                 missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 45, 15, 13));
                 misslesStarttime = System.nanoTime();
             }
@@ -124,10 +129,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for (int i = 0; i < missles.size(); i++) {
                 missles.get(i).update();
 
-                // Does not work yet
-                if(missles.get(i).getX() == player.getX()){
-                    score ++;
-                }
                 //If the missles and the player touch, the player dies and the game is over
                 if (touch(missles.get(i), player)) {
                     missles.remove(i);
@@ -135,8 +136,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     break;
                 }
                 //for memory issues we remove the missles going outside of the screen!
-                if (missles.get(i).getX() < -100) {
+                if (missles.get(i).getX() < -50) {
                     missles.remove(i);
+                    score ++;
+                    player.setScore(score);
+                    break;
+                }
+                // Does not work yet don't know why
+                if(getpoint(missles.get(i), player)){
+                    score ++;
+                    player.setPlaying(false);
                     break;
                 }
             }
@@ -172,8 +181,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     //This function checks if rockets and missles collide!
-    public boolean touch(Object hero, Object missle) {
+    public boolean touch(Object missle, Object hero) {
         if (Rect.intersects(hero.getRectangle(), missle.getRectangle())) {
+            return true;
+        }
+        return false;
+    }
+
+    //this function does not work yet, don't know why
+    public boolean getpoint(Object hero, Object missle){
+        if(hero.getX() == missle.getX()){
             return true;
         }
         return false;
@@ -195,8 +212,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         text = new Paint();
         text.setColor(Color.BLACK);
         text.setTextSize(30);
-        canvas.drawText("SCORE: " + score,100,HEIGHT - 100,text);
-        canvas.drawText("BEST: " + 0, WIDTH - 100, HEIGHT - 100, text);
+        canvas.drawText("SCORE: " + player.getScore(),100,HEIGHT - 50,text);
+        canvas.drawText("BEST: " + saveBest.getInt("new best",0), WIDTH - 50, HEIGHT - 50, text);
         if(player.isPlaying() == false){
             canvas.drawText("Touch the screen to start the game",WIDTH/2,HEIGHT/2,text);
         }
@@ -208,6 +225,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         newgame = true;
         if(player.getScore()>best) {
             best = player.getScore();
+            SharedPreferences.Editor editor = saveBest.edit();
+            editor.putInt("new best",best);
+            editor.commit();
         }
         player.resetScore();
         player.setY(HEIGHT/2);

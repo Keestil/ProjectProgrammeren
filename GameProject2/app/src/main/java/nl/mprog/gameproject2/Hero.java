@@ -9,7 +9,6 @@ public class Hero extends Object{
     private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
     private int score;
-    private long startTime;
     private boolean up;
     private boolean playing;
 
@@ -26,14 +25,13 @@ public class Hero extends Object{
         Bitmap[] cropimage = new Bitmap[frames];
         spritesheet = bmp;
 
-        // this loop cropes the immages
+        // this loop crops the images
         for (int i = 0; i < cropimage.length; i++) {
             cropimage[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
         }
 
         animation.setFrames(cropimage);
-        animation.setWaitTime(10);
-        startTime = System.nanoTime();
+        animation.setWaitTime(10000);
 
     }
 
@@ -54,7 +52,7 @@ public class Hero extends Object{
         }
 
         //Checking the bounds
-        if (y > game.HEIGHT - spritesheet.getHeight()-y_move) {
+        if (y > game.HEIGHT - 50 - spritesheet.getHeight()-y_move) {
             y_move = 0;
         }
         if (y + y_move < 0) {

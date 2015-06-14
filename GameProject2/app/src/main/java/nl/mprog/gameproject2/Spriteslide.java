@@ -24,13 +24,12 @@ public class Spriteslide {
 
     //Setting the frame we are at
     public void setFrame(int i){
-        currentFrame= i;
+        currentFrame = i;
     }
 
     public void update() {
-        long timePassed = (System.nanoTime()-startTime)/1000000;
-
         //If the time passed our waitTime we want to go to the next frame and start the timer again
+        long timePassed = (System.nanoTime()-startTime)/1000000;
         if(timePassed>waitTime) {
             currentFrame++;
             startTime = System.nanoTime();

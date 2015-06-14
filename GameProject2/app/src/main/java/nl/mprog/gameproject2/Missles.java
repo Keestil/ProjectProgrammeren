@@ -30,11 +30,11 @@ public class Missles extends Object{
         }
 
         animation.setFrames(cropimage);
-        animation.setWaitTime(10);
+        animation.setWaitTime(10000);
 
     }
     public void update() {
-        x-=speed;
+        x -= speed;
         animation.update();
     }
     public void draw(Canvas canvas) {
