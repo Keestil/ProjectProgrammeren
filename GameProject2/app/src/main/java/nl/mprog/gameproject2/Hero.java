@@ -31,7 +31,7 @@ public class Hero extends Object{
         }
 
         animation.setFrames(cropimage);
-        animation.setWaitTime(10000);
+        animation.setWaitTime(10);
 
     }
 

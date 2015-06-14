@@ -94,7 +94,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 
         //making the player
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter), 70, 40, 3);
+        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 195, 122, 4);
 
         //starting the gameloop
         thread.setRunning(true);
@@ -118,9 +118,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             long misslesTimepassed = (System.nanoTime() - misslesStarttime) / 1000000;
 
             //I like this time so far, if one wants the rockets to go slower/faster adjust this time!
-            if (misslesTimepassed > 2000) {
+            if (misslesTimepassed > 200) {
                 int randomNum = random.nextInt(HEIGHT - 130);
-                missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 45, 15, 13));
+                missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13));
                 misslesStarttime = System.nanoTime();
             }
 
