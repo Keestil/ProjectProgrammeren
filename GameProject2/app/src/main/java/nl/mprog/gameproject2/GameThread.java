@@ -9,7 +9,7 @@ public class GameThread extends Thread {
     private double averageFPS;
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
-    private boolean running;
+    private boolean running = false;
     public static Canvas canvas;
 
     public GameThread(SurfaceHolder surfaceHolder, GamePanel gamePanel)

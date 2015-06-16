@@ -27,6 +27,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     //the Timers
     private long misslesStarttime;
     private long misslesTimepassed;
+    private long deadTime;
+    private long deadTimepassed;
 
     //the Bitmaps of my game
     private Bitmap background;
@@ -35,16 +37,24 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     SharedPreferences saveBest;
     // the classes
     private GameThread thread;
+    private Hero error;
     private Hero player;
     private Missles missle;
+    private Explosion explosion;
+
+    //the booleans
+    private boolean startAgain = true;
+    private boolean newgame = true;
+    private boolean detonate = false;
 
     // the rest
     private int best;
     private int score = 0;
     private ArrayList<Missles> missles = new ArrayList<Missles>();
-    private boolean newgame = false;
     private Random random = new Random();
     private Paint text;
+    private Paint suckText;
+    private Paint bestText;
 
     public GamePanel(Context context,SharedPreferences data) {
         super(context);
@@ -94,7 +104,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 
         //making the player
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 195, 122, 4);
+        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
 
         //starting the gameloop
         thread.setRunning(true);
@@ -131,7 +141,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 //If the missles and the player touch, the player dies and the game is over
                 if (touch(missles.get(i), player)) {
-                    missles.remove(i);
                     player.setPlaying(false);
                     break;
                 }
@@ -150,9 +159,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
 
-        // Here one starts a new game if the player is finished with playing!
-        } if(!player.isPlaying()){
-            newGame();
+        }if(!player.isPlaying()) {
+            //check whether the player starts again. the first time we lose the player
+            //will definitely get into this loop
+            if(!startAgain){
+                // we only do this to set a timer, we don't want to start a new game so we set this
+                // to false
+                newgame = false;
+                startAgain = true;
+                explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 102, 256, 20);
+                explosion.setX(player.getX());
+                explosion.setY(player.getY() - 10);
+                deadTime = System.nanoTime();
+            }
+
+            detonate = true;
+            deadTimepassed = (System.nanoTime() - deadTime)/1000000;
+            explosion.update();
+
+            if((deadTimepassed > 2000) && (!newgame)){
+                newGame();
+            }
         }
     }
 
@@ -163,12 +190,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            //boolean check for when player is playing, if he isn't the chopper does nothing
-            if (!player.isPlaying()) {
+            // Boolean check for when player is playing, if he isn't the chopper does nothing.
+            // we see that the chopper only hangs still if all these booleans are true!
+            if ((!player.isPlaying()) && (newgame) && (startAgain)) {
                 player.setPlaying(true);
 
-            } else {
+            } else if(player.isPlaying()) {
                 player.setUp(true);
+                startAgain = false;
             }
             return true;
         }
@@ -182,6 +211,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     //This function checks if rockets and missles collide!
     public boolean touch(Object missle, Object hero) {
+
         if (Rect.intersects(hero.getRectangle(), missle.getRectangle())) {
             return true;
         }
@@ -204,6 +234,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (Missles m : missles) {
             m.draw(canvas);
         }
+        if(detonate){
+            explosion.draw(canvas);
+        }
         textView(canvas);
     }
 
@@ -214,23 +247,43 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         text.setTextSize(30);
         canvas.drawText("SCORE: " + player.getScore(),100,HEIGHT - 50,text);
         canvas.drawText("BEST: " + saveBest.getInt("new best",0), WIDTH - 50, HEIGHT - 50, text);
-        if(player.isPlaying() == false){
+
+        if((!player.isPlaying()) && (startAgain) && (newgame)){
             canvas.drawText("Touch the screen to start the game",WIDTH/2,HEIGHT/2,text);
+        }
+
+        if((!player.isPlaying()) && (startAgain) && (!newgame)){
+            suckText = new Paint();
+            suckText.setColor(Color.RED);
+            suckText.setTextSize(30);
+
+            bestText = new Paint();
+            bestText.setColor(Color.GREEN);
+            bestText.setTextSize(30);
+            canvas.drawText("SCORE: " + player.getScore(),100,HEIGHT - 50,text);
+
+            if(player.getScore() <= saveBest.getInt("new best",0)){
+                canvas.drawText("YOU SUCK!",WIDTH/2,HEIGHT/2,suckText);
+
+            }if(player.getScore() > saveBest.getInt("new best",0)){
+                canvas.drawText("NEW BEST!",WIDTH/2,HEIGHT/2,bestText);
+            }
         }
     }
 
     //Happens when player starts over again.
     public void newGame(){
         missles.clear();
-        newgame = true;
-        if(player.getScore()>best) {
+        if(player.getScore() > saveBest.getInt("new best",0)) {
             best = player.getScore();
             SharedPreferences.Editor editor = saveBest.edit();
             editor.putInt("new best",best);
             editor.commit();
         }
         player.resetScore();
+        score = 0;
         player.setY(HEIGHT/2);
+        newgame = true;
     }
 
 }

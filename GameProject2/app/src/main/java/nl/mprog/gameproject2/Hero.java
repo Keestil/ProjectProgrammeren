@@ -52,7 +52,7 @@ public class Hero extends Object{
         }
 
         //Checking the bounds
-        if (y > game.HEIGHT - 50 - spritesheet.getHeight()-y_move) {
+        if (y > game.HEIGHT - 63 - spritesheet.getHeight()-y_move) {
             y_move = 0;
         }
         if (y + y_move < 0) {
