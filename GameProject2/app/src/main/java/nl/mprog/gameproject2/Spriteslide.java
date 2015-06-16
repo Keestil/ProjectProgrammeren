@@ -8,7 +8,6 @@ public class Spriteslide {
     private int currentFrame;
     private long startTime;
     private long waitTime;
-    private boolean oneAnimation = false;
 
     //setting up the number of frames i want to play and starting a timer
     //for the update method
@@ -38,7 +37,6 @@ public class Spriteslide {
         //Here we want to start at the first frame again
         if(currentFrame == frames.length){
             currentFrame = 0;
-            oneAnimation = true;
         }
     }
 
@@ -49,5 +47,4 @@ public class Spriteslide {
     public int getFrame(){
         return currentFrame;
     }
-    public boolean oneAnim(){return oneAnimation;}
 }

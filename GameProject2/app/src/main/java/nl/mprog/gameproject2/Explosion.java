@@ -11,8 +11,6 @@ public class Explosion extends Object {
 
     public Explosion(Bitmap bmp, int w, int h, int frames) {
 
-        this.x = x;
-        this.y = y;
         width = w;
         height = h;
         // here we are setting up a imagecropper
@@ -30,16 +28,12 @@ public class Explosion extends Object {
     }
 
     public void update() {
-        if (!animation.oneAnim()) {
             animation.update();
-        }
     }
 
     public void draw(Canvas canvas) {
-        if (!animation.oneAnim()) {
             canvas.drawBitmap(animation.getImage(), x, y, null);
         }
-    }
 
 }
 

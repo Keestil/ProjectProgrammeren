@@ -45,7 +45,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     //the booleans
     private boolean startAgain = true;
     private boolean newgame = true;
-    private boolean detonate = false;
+    private boolean dontexplodeImediatly = false;
 
     // the rest
     private int best;
@@ -105,6 +105,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //making the player
         player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+        explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 100, 256, 20);
+        explosion.setX(player.getX());
 
         //starting the gameloop
         thread.setRunning(true);
@@ -167,16 +169,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 // to false
                 newgame = false;
                 startAgain = true;
-                explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 102, 256, 20);
-                explosion.setX(player.getX());
-                explosion.setY(player.getY() - 10);
                 deadTime = System.nanoTime();
+                explosion.setY(player.getY() - 120);
             }
 
-            detonate = true;
             deadTimepassed = (System.nanoTime() - deadTime)/1000000;
             explosion.update();
-
             if((deadTimepassed > 2000) && (!newgame)){
                 newGame();
             }
@@ -196,6 +194,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 player.setPlaying(true);
 
             } else if(player.isPlaying()) {
+                if(!dontexplodeImediatly){
+                    dontexplodeImediatly = true;
+                }
                 player.setUp(true);
                 startAgain = false;
             }
@@ -234,7 +235,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (Missles m : missles) {
             m.draw(canvas);
         }
-        if(detonate){
+        if(dontexplodeImediatly) {
             explosion.draw(canvas);
         }
         textView(canvas);
@@ -282,8 +283,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
         player.resetScore();
         score = 0;
+
         player.setY(HEIGHT/2);
+
         newgame = true;
+        dontexplodeImediatly = false;
     }
 
 }
