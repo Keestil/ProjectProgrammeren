@@ -44,6 +44,7 @@ public class Spriteslide {
     public Bitmap getImage(){
         return frames[currentFrame];
     }
+
     public int getFrame(){
         return currentFrame;
     }

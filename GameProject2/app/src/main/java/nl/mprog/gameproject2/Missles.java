@@ -43,9 +43,5 @@ public class Missles extends Object{
         }catch(Exception e){}
     }
 
-    @Override
-    public int getWidth() {
-        return width-10;
-    }
 
 }

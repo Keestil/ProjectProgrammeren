@@ -2,6 +2,7 @@ package nl.mprog.gameproject2;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,22 +15,30 @@ import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
+
+
     SharedPreferences data;
     private String filename = "savedstate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         data = getSharedPreferences(filename,0);
+
         //turn title off
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //set to full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //make sounds
+        MediaPlayer explosionSound = MediaPlayer.create(this, R.raw.explosion02);
+        MediaPlayer backgroundSound = MediaPlayer.create(this, R.raw.cool_music);
+
         //drawing in the gamePanel class
-        setContentView(new GamePanel(this,data));
+        setContentView(new GamePanel(this, data, explosionSound, backgroundSound));
     }
 
     @Override

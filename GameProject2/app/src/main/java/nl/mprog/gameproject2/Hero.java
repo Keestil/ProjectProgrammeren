@@ -62,7 +62,7 @@ public class Hero extends Object{
         y_move = 0;
     }
 
-    // here we draw the anymation
+    // here we draw the animation
     public void draw(Canvas canvas) {
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }

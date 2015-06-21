@@ -4,6 +4,7 @@ import android.graphics.Rect;
 
 //Every class can use methods from this class, that's the reason we make it abstract
 public abstract class Object {
+    protected int ID = 0;
     protected int x;
     protected int y;
     protected int y_move;
@@ -11,11 +12,13 @@ public abstract class Object {
     protected int height;
 
     public void setX(int x){
-
         this.x = x;
     }
     public void setY(int y) {
             this.y = y;
+    }
+    public void setID(int ID){
+        this.ID = ID;
     }
     public int getX(){
             return x;
@@ -23,6 +26,8 @@ public abstract class Object {
     public int getY() {
             return y;
     }
+    public int getID(){ return ID;}
+
     public int getHeight() {
             return height;
     }

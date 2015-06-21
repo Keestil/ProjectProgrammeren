@@ -8,18 +8,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.preference.PreferenceManager;
-import android.support.annotation.MainThread;
-import android.util.DisplayMetrics;
+//import android.media.MediaPlayer;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+
+    private MediaPlayer coolMusic;
+    private MediaPlayer boomSound;
+    private SharedPreferences saveBest;
+
     //here we just make the width and height, adjust this if playing on another mobile!
     public static final int WIDTH = 900;
     public static final int HEIGHT = 1800;
@@ -29,25 +32,31 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private long misslesTimepassed;
     private long deadTime;
     private long deadTimepassed;
+    private long soundTime;
+    private long soundTimeElapsed;
 
     //the Bitmaps of my game
     private Bitmap background;
     private Bitmap scaledbmp;
 
-    SharedPreferences saveBest;
     // the classes
     private GameThread thread;
-    private Hero error;
     private Hero player;
+    private Hero error;
     private Missles missle;
     private Explosion explosion;
 
     //the booleans
+    private boolean playMusic = false;
+    private boolean playSound = false;
     private boolean startAgain = true;
     private boolean newgame = true;
-    private boolean dontexplodeImediatly = false;
+    private boolean detonate = false;
 
     // the rest
+    private int musicCounter = 0;
+    private int numMissles = 0;
+    private int counter = 0;
     private int best;
     private int score = 0;
     private ArrayList<Missles> missles = new ArrayList<Missles>();
@@ -56,10 +65,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Paint suckText;
     private Paint bestText;
 
-    public GamePanel(Context context,SharedPreferences data) {
+    public GamePanel(Context context,SharedPreferences data, MediaPlayer explosionSound,MediaPlayer backgroundSound) {
         super(context);
-
+        coolMusic = backgroundSound;
+        boomSound = explosionSound;
         saveBest = data;
+
         //add the callback to the surfaceholder to intercept events
         getHolder().addCallback(this);
 
@@ -105,6 +116,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //making the player
         player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+        error = player;
+        error.setX(player.getX()-10);
         explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 100, 256, 20);
         explosion.setX(player.getX());
 
@@ -112,73 +125,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread.setRunning(true);
         thread.start();
 
-    }
-
-    //this methods updates the sprite while going through the gameloop,
-    // hardest function of all in my opinion.
-    public void update() {
-
-        if (player.isPlaying()) {
-
-            //updating the player
-            player.update();
-
-            // check how many time has gone past and making a new missle for
-            // each unit of time!
-
-            //System.out.println("Making missles");
-            long misslesTimepassed = (System.nanoTime() - misslesStarttime) / 1000000;
-
-            //I like this time so far, if one wants the rockets to go slower/faster adjust this time!
-            if (misslesTimepassed > 200) {
-                int randomNum = random.nextInt(HEIGHT - 130);
-                missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13));
-                misslesStarttime = System.nanoTime();
-            }
-
-            // Updating the missles in our list, this next algoritm just makes a list of missles and
-            // removes them if they fall of our screen!
-            for (int i = 0; i < missles.size(); i++) {
-                missles.get(i).update();
-
-                //If the missles and the player touch, the player dies and the game is over
-                if (touch(missles.get(i), player)) {
-                    player.setPlaying(false);
-                    break;
-                }
-                //for memory issues we remove the missles going outside of the screen!
-                if (missles.get(i).getX() < -50) {
-                    missles.remove(i);
-                    score ++;
-                    player.setScore(score);
-                    break;
-                }
-                // Does not work yet don't know why
-                if(getpoint(missles.get(i), player)){
-                    score ++;
-                    player.setPlaying(false);
-                    break;
-                }
-            }
-
-        }if(!player.isPlaying()) {
-            //check whether the player starts again. the first time we lose the player
-            //will definitely get into this loop
-            if(!startAgain){
-                // we only do this to set a timer, we don't want to start a new game so we set this
-                // to false
-                newgame = false;
-                startAgain = true;
-                deadTime = System.nanoTime();
-                explosion.setY(player.getY() - 120);
-            }
-
-            deadTimepassed = (System.nanoTime() - deadTime)/1000000;
-            explosion.update();
-            if((deadTimepassed > 2000) && (!newgame)){
-                newGame();
-            }
-        }
     }
 
     @Override
@@ -194,8 +140,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 player.setPlaying(true);
 
             } else if(player.isPlaying()) {
-                if(!dontexplodeImediatly){
-                    dontexplodeImediatly = true;
+                if (!detonate) {
+                    detonate = true;
                 }
                 player.setUp(true);
                 startAgain = false;
@@ -205,14 +151,139 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
             player.setUp(false);
+            startAgain = false;
+            playMusic = true;
+            detonate = false;
             return true;
         }
         return super.onTouchEvent(event);
     }
+    //this methods updates the sprite while going through the gameloop,
+    // hardest function of all in my opinion.
+    public void update() {
+        if(playMusic) {
+            while (musicCounter < 1) {
+                coolMusic.setLooping(true);
+                coolMusic.start();
+                musicCounter++;
+            }
+        }
+
+        if (player.isPlaying()) {
+
+            detonate = false;
+            //updating the player
+            player.update();
+
+            // check how many time has gone past and making a new missle for
+            // each unit of time!
+
+            //System.out.println("Making missles");
+            long misslesTimepassed = (System.nanoTime() - misslesStarttime) / 1000000;
+
+            //I like this time so far, if one wants the rockets to go slower/faster adjust this time!
+            if (misslesTimepassed > 750) {
+                numMissles ++;
+                int randomNum = random.nextInt(HEIGHT - 130);
+
+                if(numMissles % 10 == 0 && numMissles != 0) {
+
+                    missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
+                    missle.setID(3);
+                    missles.add(missle);
+
+                }if(numMissles % 5 == 0 && numMissles !=0){
+
+                    int randompowerup = random.nextInt(2);
+                    if(randompowerup == 0){
+                        missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
+                        missle.setID(1);
+                        missles.add(missle);
+                    } if(randompowerup == 1) {
+                        missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
+                        missle.setID(2);
+                        missles.add(missle);
+                    }
+                } else{
+                    missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
+                    missle.setID(0);
+                    missles.add(missle);
+                };
+//                missles.add(new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13));
+                misslesStarttime = System.nanoTime();
+            }
+
+            // Updating the missles in our list, this next algoritm just makes a list of missles and
+            // removes them if they fall of our screen!
+            for (int i = 0; i < missles.size(); i++) {
+                missles.get(i).update();
+
+                //If the missles and the player touch, the player dies and the game is over
+                //error voor player verangen en andersom
+                if (touch(missles.get(i), player)) {
+                    if(missles.get(i).getID() == 0 || missles.get(i).getID() == 3){
+                        player.setPlaying(false);
+                        break;
+
+                    }if(missles.get(i).getID() == 1){
+                        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.saucer), 114, 76, 12);
+                        player.setY(missles.get(i).getY());
+                        missles.remove(i);
+                        player.setPlaying(true);
+
+                    }if(missles.get(i).getID() == 2){
+                        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+                        player.setY(missles.get(i).getY());
+                        missles.remove(i);
+                        player.setPlaying(true);
+                    }
+                }
+                //for memory issues we remove the missles going outside of the screen!
+                //missed powerups also count on the score!
+                if (missles.get(i).getX() < -50 && missles.get(i).getID() != 3 ) {
+                    missles.remove(i);
+                    score ++;
+                    player.setScore(score);
+                    break;
+                }if((missles.get(i).getX() < -300 && missles.get(i).getID() == 3 )){
+                    missles.remove(i);
+                    score = score + 5;
+                    player.setScore(score);
+                    break;
+                }
+            }
+
+        }if(!player.isPlaying()) {
+            //check whether the player starts again. the first time we lose the player
+            //will definitely get into this loop
+            if(!startAgain){
+                // we only do this to set a timer, we don't want to start a new game so we set this
+                // to false
+                newgame = false;
+                startAgain = true;
+                deadTime = System.nanoTime();
+                explosion.setY(player.getY() - 120);
+                detonate = true;
+                playSound = true;
+                coolMusic.pause();
+                coolMusic.seekTo(0);
+            }
+            deadTimepassed = (System.nanoTime() - deadTime)/1000000;
+            explosion.update();
+            if(playSound){
+                while(counter<1){
+                    boomSound.start();
+                    counter++;
+                }
+            }
+            if((deadTimepassed > 2000) && (!newgame)){
+                newGame();
+            }
+        }
+    }
 
     //This function checks if rockets and missles collide!
     public boolean touch(Object missle, Object hero) {
-
         if (Rect.intersects(hero.getRectangle(), missle.getRectangle())) {
             return true;
         }
@@ -235,7 +306,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (Missles m : missles) {
             m.draw(canvas);
         }
-        if(dontexplodeImediatly) {
+        if(detonate) {
             explosion.draw(canvas);
         }
         textView(canvas);
@@ -274,6 +345,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     //Happens when player starts over again.
     public void newGame(){
+
+        boomSound.pause();
+        boomSound.seekTo(0);
+
         missles.clear();
         if(player.getScore() > saveBest.getInt("new best",0)) {
             best = player.getScore();
@@ -282,12 +357,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             editor.commit();
         }
         player.resetScore();
+
         score = 0;
+        counter = 0;
+        musicCounter = 0;
 
         player.setY(HEIGHT/2);
 
         newgame = true;
-        dontexplodeImediatly = false;
-    }
+        detonate = false;
+        playSound = false;
+        playMusic = false;
 
+        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+    }
 }
