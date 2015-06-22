@@ -9,11 +9,12 @@ import java.util.Random;
 public class Missles extends Object{
 
     private int score;
-    private int speed;
+    private long speed;
     private Random rand = new Random();
     private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
 
+    //making missles
     public Missles(Bitmap bmp, int x, int y, int w, int h,int frames) {
         this.x = x;
         this.y = y;
@@ -24,24 +25,35 @@ public class Missles extends Object{
 
         Bitmap[] cropimage = new Bitmap[frames];
         spritesheet = bmp;
-
+        //note that i crop a spritesheet here with x frames where x is an integer
         for(int i = 0; i<cropimage.length;i++) {
             cropimage[i] = Bitmap.createBitmap(spritesheet, 0, i*height, width, height);
         }
-
+        //we set the frames and waittime in the animation class
         animation.setFrames(cropimage);
-        animation.setWaitTime(100);
+        animation.setWaitTime(5);
 
     }
+    //here we set the speed of the missles and update it in the animation class
     public void update() {
         x -= speed;
         animation.update();
     }
+
+    //draw the animation
     public void draw(Canvas canvas) {
         try{
             canvas.drawBitmap(animation.getImage(),x,y,null);
         }catch(Exception e){}
     }
 
+    //get the speed of the missles
+    public long getmissleSpeed(){
+        return speed;
+    }
+    //set the speed of the missles
+    public void setmisslesSpeed(long newSpeed){
+        speed = newSpeed;
+    }
 
 }

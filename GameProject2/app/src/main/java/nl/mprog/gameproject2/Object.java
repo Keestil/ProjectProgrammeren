@@ -2,7 +2,7 @@ package nl.mprog.gameproject2;
 
 import android.graphics.Rect;
 
-//Every class can use methods from this class, that's the reason we make it abstract
+//every class can use methods from this class, that's the reason we make it abstract
 public abstract class Object {
     protected int ID = 0;
     protected int x;
@@ -35,7 +35,7 @@ public abstract class Object {
         return width;
     }
 
-    //all these previous functions are pretty obvious, this one however gives one the recangle
+    //all these previous functions are pretty obvious, this one however gives one the rectangle
     //that the sprite covers.
     public Rect getRectangle() {
         return new Rect(x, y, x+width, y+height);

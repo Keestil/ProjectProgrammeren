@@ -13,18 +13,18 @@ public class Explosion extends Object {
 
         width = w;
         height = h;
+
         // here we are setting up a imagecropper
         Bitmap[] cropimage = new Bitmap[frames];
         spritesheet = bmp;
 
-        //20 width frames!!
         // this loop crops the images
         for (int i = 0; i < cropimage.length; i++) {
             cropimage[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
         }
 
         animation.setFrames(cropimage);
-        animation.setWaitTime(10);
+        animation.setWaitTime(5);
     }
 
     public void update() {

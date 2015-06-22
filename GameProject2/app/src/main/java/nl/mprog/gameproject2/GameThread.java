@@ -51,9 +51,6 @@ public class GameThread extends Thread {
                 }
             }
 
-
-
-
             timeMillis = (System.nanoTime() - startTime) / 1000000;
             waitTime = targetTime-timeMillis;
 
@@ -74,5 +71,15 @@ public class GameThread extends Thread {
     public void setRunning(boolean b) {
         running=b;
     }
+
+
+
+
+
 }
+
+
+
+
+
 

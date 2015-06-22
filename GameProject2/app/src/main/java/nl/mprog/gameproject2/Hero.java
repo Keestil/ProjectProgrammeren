@@ -31,7 +31,7 @@ public class Hero extends Object{
         }
 
         animation.setFrames(cropimage);
-        animation.setWaitTime(10);
+        animation.setWaitTime(5);
 
     }
 
@@ -67,6 +67,7 @@ public class Hero extends Object{
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }
 
+    //all these functions below are pretty obvious
     public int getScore(){
         return score;
     }

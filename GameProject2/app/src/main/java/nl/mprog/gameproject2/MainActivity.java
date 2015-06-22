@@ -16,7 +16,8 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 
 
-
+    MediaPlayer backgroundSound;
+    MediaPlayer explosionSound;
     SharedPreferences data;
     private String filename = "savedstate";
 
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
+        //creating data for saving scores
         data = getSharedPreferences(filename,0);
 
         //turn title off
@@ -34,10 +36,10 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //make sounds
-        MediaPlayer explosionSound = MediaPlayer.create(this, R.raw.explosion02);
-        MediaPlayer backgroundSound = MediaPlayer.create(this, R.raw.cool_music);
+        explosionSound = MediaPlayer.create(this, R.raw.explosion02);
+        backgroundSound = MediaPlayer.create(this, R.raw.cool_music2);
 
-        //drawing in the gamePanel class
+        //using  the gamePanel class to draw and play the game
         setContentView(new GamePanel(this, data, explosionSound, backgroundSound));
     }
 
@@ -61,5 +63,12 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    //here we turn of the music when the player stops the app.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        backgroundSound.stop();
+        explosionSound.stop();
     }
 }
