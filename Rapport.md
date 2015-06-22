@@ -20,33 +20,33 @@ De java classes in mijn project zijn:
 
 - MainActivity
 
-Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen. Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en zal het beeld fullscreen gaan. De GamePanel zal meteen worden aangeroepen.
-
+ Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen.     Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en zal het beeld fullscreen gaan. De GamePanel zal      meteen worden aangeroepen.
+ 
 - Hero
 
- We zorgen ervoor met een boolean-check dat de speler weet wanneer hij omhoog moet en wanneer hij omlaag moet. Verder zorgen we ervoor dat de speler niet uit het scherm kan vliegen. De animatie van de speler wordt verzorgd in de SpriteSlide, door de spritesheet in stukjes te hakken en steeds na elkaar weer te geven maken we een animatie. 
+ We zorgen ervoor met een boolean-check dat de speler weet wanneer hij omhoog moet en wanneer hij omlaag moet. Verder zorgen  we ervoor dat de speler niet uit het scherm kan vliegen. De animatie van de speler wordt verzorgd in de SpriteSlide, door de  spritesheet in stukjes te hakken en steeds na elkaar weer te geven maken we een animatie. 
 
 - Explosions
 
-In deze klasse maken we explosies aan, eigenlijk doen we precies hetzelfde als in de Hero class. Ik heb ervoor gekozen om de animatie meer dan 1 keer af te spelen voor een extra dramatisch effect. De animatie wordt door SpriteSlide geregeld op dezelfde manier als de Hero class.
+  In deze klasse maken we explosies aan, eigenlijk doen we precies hetzelfde als in de Hero class. Ik heb ervoor gekozen om    de animatie meer dan 1 keer af te spelen voor een extra dramatisch effect. De animatie wordt door SpriteSlide geregeld op    dezelfde manier als de Hero class.
 
 - Missles
 
-Hier maakt men de rakketten/power-ups aan. we maken de animatie zoals in hero-class. Het verschil is hier dat de raketten in de update method naar links moeten gaan, daar waar we bij de Hero class kijken voor omlaag/omhoog. De methode get/setSpeed() helpen ons om de snelheid van de raketten te controleren.
+  Hier maakt men de rakketten/power-ups aan. we maken de animatie zoals in hero-class. Het verschil is hier dat de raketten    in de update method naar links moeten gaan, daar waar we bij de Hero class kijken voor omlaag/omhoog. De methode             get/setSpeed() helpen ons om de snelheid van de raketten te controleren.
 
 - GameThread
 
-In deze thread zorgen we dat de gameloop werkt.
+  In deze thread zorgen we dat de gameloop werkt.
 
 - GamePanel
 
-Hierin wordt de game afgespeeld, we tekenen hier alles en zorgen dat de animaties op de juiste momenten worden afgespeeld.
+  Hierin wordt de game afgespeeld, we tekenen hier alles en zorgen dat de animaties op de juiste momenten worden afgespeeld.
 
 - Object
 
-Deze klasse bevat alle methods die Hero/Explosion/Missle gemeen hebben. Denk hierbij aan een setX(), setY() functie etc....
+  Deze klasse bevat alle methods die Hero/Explosion/Missle gemeen hebben. Denk hierbij aan een setX(), setY() functie etc....
 
 - SpriteSlide
 
-hier regelen we de animatie. Wat we kortgezegd doen is het de frames die we in Hero/Missle/Explosion hebben gemaakt snel achter elkaar spelen. De waiting time bepaald hoeveel tijd ertussen zit.
+  Hier regelen we de animatie. Wat we kortgezegd doen is het de frames die we in Hero/Missle/Explosion hebben gemaakt snel     achter elkaar spelen. De waiting time bepaald hoeveel tijd ertussen zit.
 
