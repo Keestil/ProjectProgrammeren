@@ -6,7 +6,7 @@ moet men ge-entertained worden, anders is het een vrij waardeloos programma. Om 
 - Men moet kunnen sterven door vliegende projectielen.
 - Men moet opnieuw kunnen beginnen.
 
-*bijzaken:*
+**Bijzaken:**
 
 - Muziek zou wel fijn zijn.
 - Meer characters kiezen.
@@ -41,5 +41,6 @@ beter te werken dan een view voor animatie en games zoals hier staat:
 http://stackoverflow.com/questions/1243433/android-difference-between-surfaceview-and-view
 
 Verder is een gameloop belangrijk voor games en daarvoor heb ik deze tutorial gebruikt:
+
 http://obviam.net/index.php/a-very-basic-the-game-loop-for-android/
 
