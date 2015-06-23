@@ -1,27 +1,31 @@
 Ten eerste zal ik hierin vertellen wat onder mijn ogen een minimal/viable product is. Voor een minimal viable product
 moet men ge-entertained worden, anders is het een vrij waardeloos programma. Om dat te doen moet dit er zoiezo inzitten:
 
-1) Het product moet een bewegende sprite hebben, die door zwaartekracht naar beneden kan worden getrokken
-2) Men moet een score kunnen halen en deze kunnen verbreken, scores moeten dus opgeslagen worden.
-3) Men moet kunnen sterven door vliegende projectielen.
-4) Men moet opnieuw kunnen beginnen.
+- Het product moet een bewegende sprite hebben, die door zwaartekracht naar beneden kan worden getrokken
+- Men moet een score kunnen halen en deze kunnen verbreken, scores moeten dus opgeslagen worden.
+- Men moet kunnen sterven door vliegende projectielen.
+- Men moet opnieuw kunnen beginnen.
 
-bijzaken:
-1) Muziek zou wel fijn zijn.
-2) Meer characters kiezen.
-3) explosie/sterf animatie.
-4) variatie in projectielen.
-5) boosts (onsterfelijk zijn, schieten).
+*bijzaken:*
+
+- Muziek zou wel fijn zijn.
+- Meer characters kiezen.
+- explosie/sterf animatie.
+- variatie in projectielen.
+- boosts (onsterfelijk zijn, schieten).
 
 Classes die ik heb geimplementeerd:
-xml/java
+
+*xml*
+
 - MainActivity
 - CharacterActivity
 - CustomlistAdapter
 - GameActivity
 - LeaderActivity
 
-java
+*java*
+
 - GamePanel
 - LeaderActivity
 - GamePanelThread
