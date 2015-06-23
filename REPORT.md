@@ -18,7 +18,7 @@ De java classes in mijn project zijn:
 
 - MainActivity
 
-  Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen.     Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en zal het beeld fullscreen gaan. Deze klasse is        eigenlijk het minst interessant van allemaal, gezien het feit dat de game zich voornamelijk in de GamePanel afspeelt. 
+  Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen.     Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en wanneer de gebruiken het geluid wil uitzetten via    het menu. Verder zal het spel in fullscreen-modus gaan. Deze klasse is eigenlijk het minst interessant van allemaal, gezien   het feit dat de game zich voornamelijk in de GamePanel afspeelt. 
  
 - Hero
 
