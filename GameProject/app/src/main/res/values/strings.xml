@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">GameProject</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_character">CharacterActivityActivity</string>
-    <string name="title_activity_leader">LeaderActivity</string>
-    <string name="title_activity_game">GameActivity</string>
-</resources>
