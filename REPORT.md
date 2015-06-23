@@ -24,11 +24,14 @@ De java classes in mijn project zijn:
 
   Hierin zetten we de startpositie van de helicopter. Verder bepalen we de hoogte en breedte van de spritesheet die de speler   wil gebruiken om te snijden in x aantal stukken, ik heb ervoor gekozen om alleen horizontale spritesheets te kiezen omdat    dat makkelijker te programmeren was. De lijst met gesneden frames geef ik vervolgens door aan de SpriteSlide class en ik     geef ook de wachttijd mee die de SpriteSlide moet aanhouden na elke frame in deze lijst.
 
-Daarnaast moet men wat met de helicopter kunnen doen, wat in de update method gebeurt. Eerst moet de animatie natuurlijk gemaakt worden, wat gebeurt in de SpriteSlide class. Vervolgens willen we met behulp van een boolean check bepalen of de helicopter naar beneden moet vliegen of naar boven, de y-coordinaat is als hij naar beneden gaat en negatief als hij naar boven gaat. Om te voorkomen dat de helicopter uit het scherm vliegt hebben ik nog een if-statement gebruikt. Verder implementeren we een paar methods als de set-get-resetScore() en de is-setPlaying() method, die gebruikt wordt om de speler te resetten als hij afgaat.
+  Daarnaast moet men wat met de helicopter kunnen doen, wat in de update method gebeurt. Eerst moet de animatie natuurlijk     gemaakt worden, wat gebeurt in de SpriteSlide class. Vervolgens willen we met behulp van een boolean check bepalen of de     helicopter naar beneden moet vliegen of naar boven, de y-coordinaat is als hij naar beneden gaat en negatief als hij naar    boven gaat. Om te voorkomen dat de helicopter uit het scherm vliegt hebben ik nog een if-statement gebruikt. Verder          implementeren we een paar methods als de set-get-resetScore() en de is-setPlaying() method, die gebruikt wordt om de speler   te resetten als hij afgaat.
+  
+  In de tekenmethod willen we slechts de frames tekenen, dus we gebruiken de SpriteSlide class waar een lijst met de frames    in is gemaakt. Ik heb dit niet in de Hero class gedaan omdat we de frames na elkaar willen tekenen en dit gebeurt
+  in de SpriteSlide class, zo heb ik het ook gedaan in de Missles/Explosion class.
 
 - Explosions
 
-  In deze klasse maken we explosies aan, eigenlijk doen we precies hetzelfde als in de Hero class. Ik heb ervoor gekozen om    de animatie meer dan 1 keer af te spelen voor een extra dramatisch effect. De animatie wordt door SpriteSlide geregeld op    dezelfde manier als de Hero class.
+  In deze klasse maken we explosies aan, eigenlijk doen we precies hetzelfde als in de Hero class. Ik heb ervoor gekozen om    de animatie meer dan 1 keer af te spelen voor een extra dramatisch effect. Als men de animatie slechts 1 keer wil afspelen   kan er gebruikt worden gemaak van een boolean check als playedOnce in de SpriteSlide class.
 
 - Missles
 
@@ -46,6 +49,7 @@ Daarnaast moet men wat met de helicopter kunnen doen, wat in de update method ge
 - Object
 
   Deze klasse bevat alle methods die Hero/Explosion/Missle gemeen hebben. Denk hierbij aan een setX(), setY() functie etc....
+  Ik zat te twijfelen of ik unieke methods van deze klassen als setSpeed() en setScore() hier ook in moest doen, maar ik heb   besloten dat niet te doen. Zo raakt de lezer niet in de war, in de zin dat de methods niet als universeel worden gezien.
 
 - SpriteSlide
 
