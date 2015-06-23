@@ -36,15 +36,15 @@ public class Missles extends Object{
     }
     //here we set the speed of the missles and update it in the animation class
     public void update() {
-        x -= speed;
         animation.update();
+        x -= speed;
     }
 
     //draw the animation
     public void draw(Canvas canvas) {
-        try{
+//        try{
             canvas.drawBitmap(animation.getImage(),x,y,null);
-        }catch(Exception e){}
+//        }catch(Exception e){}
     }
 
     //get the speed of the missles
@@ -52,7 +52,7 @@ public class Missles extends Object{
         return speed;
     }
     //set the speed of the missles
-    public void setmisslesSpeed(long newSpeed){
+    public void setmissleSpeed(long newSpeed){
         speed = newSpeed;
     }
 

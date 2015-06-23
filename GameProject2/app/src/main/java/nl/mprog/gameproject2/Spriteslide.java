@@ -45,7 +45,7 @@ public class Spriteslide {
         return frames[currentFrame];
     }
 
-    public int getFrame(){
-        return currentFrame;
-    }
+//    public int getFrame(){
+//        return currentFrame;
+//    }
 }

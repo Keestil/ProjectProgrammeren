@@ -26,15 +26,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     //here we just make the width and height, adjust this if playing on another mobile!
     public static final int WIDTH = 900;
-    public static final int HEIGHT = 1800;
+    public static final int HEIGHT = 1780;
 
     //the timers
     private long misslesStarttime;
-    private long misslesTimepassed;
     private long deadTime;
     private long deadTimepassed;
-    private long soundTime;
-    private long soundTimeElapsed;
 
     //the Bitmaps of my game
     private Bitmap background;
@@ -43,7 +40,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // the classes
     private GameThread thread;
     private Hero player;
-    private Hero error;
     private Missles missle;
     private Explosion explosion;
 
@@ -99,15 +95,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         boolean retry = true;
         while (retry) {
             try {
-                thread.setRunning(false);
                 thread.join();
-
+                retry = false;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                // try again shutting down the thread
             }
-            retry = false;
         }
-
     }
 
     @Override
@@ -122,12 +115,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //making the player and explosion
         player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
-        error = player;
-        error.setX(player.getX()-10);
         explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 100, 256, 20);
         explosion.setX(player.getX());
 
-        //starting the gameloop
+        //starting the thread
         thread.setRunning(true);
         thread.start();
 
@@ -143,14 +134,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //we see that the chopper only hangs still if all these booleans are true!
             if ((!player.isPlaying()) && (newgame) && (startAgain)) {
                 player.setPlaying(true);
-
             //here we see what happens when the player is playing. we set the detonation on true
             //but draw the detonation in a later stadium of the game! The startAgain is set false
             //so we can freeze the game in a later stadium
             } else if(player.isPlaying()) {
-                //if (detonate) {
-                //    detonate = false;
-                //}
                 player.setUp(true);
                 startAgain = false;
             }
@@ -162,9 +149,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             player.setUp(false);
             playMusic = true;
-            //if (detonate) {
-            //    detonate = false;
-            //}
             startAgain = false;
             return true;
         }
@@ -175,16 +159,20 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         //first we check wheter the music must be played. This while-loop is a neat way of saying
         //play the music once and not infitinite many times!
-        if(playMusic) {
+        if(playMusic && saveBest.getInt("backgroundSound",0)==0 && player.isPlaying()) {
             while (musicCounter < 1) {
                 coolMusic.setLooping(true);
                 coolMusic.start();
                 musicCounter++;
             }
+        }if(saveBest.getInt("backgroundSound",0)==1){
+            coolMusic.pause();
+            coolMusic.seekTo(0);
+            musicCounter = 0;
+            //do nothing.
         }
 
         if (player.isPlaying()) {
-
             //set the detonation on false again, so we won't get infinite many drawn explosions
             //detonate = false;
 
@@ -199,35 +187,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             //increases. One can adjust the scoreDifficulty() function for a preferred difficulty-
             //setting.
             if (misslesTimepassed > 750 - scoreDifficulty()) {
-                numMissles ++;
-                int randomNum = random.nextInt(HEIGHT - 130);
-
-                //once in 10 missles, make a big missle
-                if(numMissles % 10 == 0 && numMissles != 0) {
-
-                    missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
-                    missle.setID(3);
-                    missles.add(missle);
-
-                //once in 50 missles, make a random powerup
-                }if(numMissles % 25 == 0 && numMissles !=0){
-
-                    int randompowerup = random.nextInt(2);
-                    if(randompowerup == 0){
-                        missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
-                        missle.setID(1);
-                        missles.add(missle);
-                    } if(randompowerup == 1) {
-                        missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
-                        missle.setID(2);
-                        missles.add(missle);
-                    }
-                //make small missles in all other cases
-                } else{
-                    missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
-                    missle.setID(0);
-                    missles.add(missle);
-                }
+                //making missles
+                makeMissles();
                 //don't forget to reset your timer
                 misslesStarttime = System.nanoTime();
             }
@@ -238,21 +199,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                 //can make a function out of this, Adjust missleSpeed when missles are made.
                 if(missles.get(i).getmissleSpeed()<50) {
-                    missles.get(i).setmisslesSpeed((long) (missles.get(i).getmissleSpeed() + (score / (float) 100)));
+                    missles.get(i).setmissleSpeed((long) (missles.get(i).getmissleSpeed() + (score / (float) 100)));
                 }else{
-                    missles.get(i).setmisslesSpeed((long) 50);
+                    missles.get(i).setmissleSpeed((long) 50);
                 }
                 //draw the missle
                 missles.get(i).update();
                 //if the missles and the player touch, the player dies and the game is over if the
                 //ID is a rocket, but proceeds if the ID is a powerup
                 if (touch(missles.get(i), player)) {
+                    //when the projectile is a missle
                     if (missles.get(i).getID() == 0 || missles.get(i).getID() == 3) {
-                        //we could remove the missle here but i chose not to
+                        missles.remove(i);
                         player.setPlaying(false);
                         break;
-
                     }
+                    //when the projectile is not a missle
                     if (missles.get(i).getID() == 1) {
                         player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.saucer), 114, 76, 12);
                         player.setY(missles.get(i).getY());
@@ -303,11 +265,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
             deadTimepassed = (System.nanoTime() - deadTime)/1000000;
             explosion.update();
-            if(playSound){
+            if(playSound && saveBest.getInt("explosionSound",0)==0){
                 while(counter<1){
                     boomSound.start();
                     counter++;
                 }
+            }if(saveBest.getInt("explosionSound",0)==1){
+                boomSound.pause();
+                boomSound.seekTo(0);
+                counter = 0;
             }
             //here the game freezes
             if((deadTimepassed > 2000) && (!newgame)){
@@ -343,12 +309,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         text = new Paint();
         text.setColor(Color.BLACK);
         text.setTextSize(30);
-        canvas.drawText("SCORE: " + player.getScore(),100,HEIGHT - 50,text);
-        canvas.drawText("BEST: " + saveBest.getInt("new best",0), WIDTH - 50, HEIGHT - 50, text);
+        canvas.drawText("SCORE: " + player.getScore(),WIDTH - 50,HEIGHT - 70,text);
+        canvas.drawText("BEST: " + saveBest.getInt("new best",0), WIDTH - 50, HEIGHT - 20, text);
 
         //this is written in the beginning state
         if((!player.isPlaying()) && (startAgain) && (newgame)){
-            canvas.drawText("Touch the screen to start the game",WIDTH/2,HEIGHT/2,text);
+            canvas.drawText("TOUCH THE SCREEN TO START THE GAME",WIDTH/2,HEIGHT/2,text);
+            canvas.drawText("PRESS TO GO UP, RELEASE TO GO DOWN",WIDTH/2,(HEIGHT/2)+70,text);
+            canvas.drawText("SOUND CAN BE ADJUSTED IN THE MENU",WIDTH/2,(HEIGHT/2)+420,text);
         }
 
         //this is writen when player and missle collide
@@ -360,7 +328,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             bestText = new Paint();
             bestText.setColor(Color.GREEN);
             bestText.setTextSize(30);
-            canvas.drawText("SCORE: " + player.getScore(),100,HEIGHT - 50,text);
+            canvas.drawText("SCORE: " + player.getScore(), WIDTH - 50, HEIGHT - 70,text);
 
             if(player.getScore() <= saveBest.getInt("new best",0)){
                 canvas.drawText("YOU SUCK!",WIDTH/2,HEIGHT/2,suckText);
@@ -381,6 +349,35 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return difficultyScore;
     }
 
+    public void makeMissles(){
+        numMissles ++;
+        int randomNum = random.nextInt(HEIGHT - 70);
+        //once in 10 missles, make a big missle
+        if(numMissles % 10 == 0 && numMissles != 0) {
+            missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
+            missle.setID(3);
+            missles.add(missle);
+            //once in 25 missles, make a random powerup for demo purposes, set this on 75 for the
+            //better game experience
+        }if(numMissles % 25 == 0 && numMissles !=0){
+            int randompowerup = random.nextInt(2);
+            if(randompowerup == 0){
+                missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
+                missle.setID(1);
+                missles.add(missle);
+            } if(randompowerup == 1) {
+                missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
+                missle.setID(2);
+                missles.add(missle);
+            }
+            //make small missles in all other cases
+        } if(numMissles % 10 !=0 && numMissles % 25 != 0){
+            missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
+            missle.setID(0);
+            missles.add(missle);
+        }
+    }
+
     //starts a new game
     public void newGame(){
 
@@ -399,6 +396,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         score = 0;
         counter = 0;
         musicCounter = 0;
+        numMissles = 0;
 
         player.setY(HEIGHT/2);
 

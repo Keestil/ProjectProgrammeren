@@ -51,18 +51,20 @@ public class Hero extends Object{
             y_move = 20;
         }
 
-        //Checking the bounds
-        if (y > game.HEIGHT - 63 - spritesheet.getHeight()-y_move) {
+        //checking the bounds, I want the helicopter to stay above the text score, thats why I have
+        //an extra 63.
+        if (y > game.HEIGHT  - spritesheet.getHeight()-y_move) {
             y_move = 0;
         }
         if (y + y_move < 0) {
             y_move = 0;
         }
         y = y + y_move;
+        //we need to reset the movement, because we have an infinite loop in the gamepanel.
         y_move = 0;
     }
 
-    // here we draw the animation
+    // here we draw the frames
     public void draw(Canvas canvas) {
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }

@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
         //make sounds
         explosionSound = MediaPlayer.create(this, R.raw.explosion02);
-        backgroundSound = MediaPlayer.create(this, R.raw.cool_music2);
+        backgroundSound = MediaPlayer.create(this, R.raw.cool_music);
 
         //using  the gamePanel class to draw and play the game
         setContentView(new GamePanel(this, data, explosionSound, backgroundSound));
@@ -55,14 +55,25 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.soundOn:
+                SharedPreferences.Editor editor = data.edit();
+                editor.putInt("backgroundSound",0);
+                editor.putInt("explosionSound",0);
+                editor.commit();
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.soundOf:
+                SharedPreferences.Editor editor1 = data.edit();
+                editor1.putInt("backgroundSound", 1);
+                editor1.putInt("explosionSound",1);
+                editor1.commit();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
     //here we turn of the music when the player stops the app.
     @Override
