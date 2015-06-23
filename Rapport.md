@@ -36,11 +36,12 @@ De java classes in mijn project zijn:
 
 - GameThread
 
-  In deze thread zorgen we dat de gameloop werkt.
+  In deze thread zorgen we dat de taken worden uitgevoerd, in dit geval dus het tekenen en updaten van het spel. De gameloop   wordt hierin uitgevoerd. Deze klasse is dus de basis van het spel en in mijn ogen het belangrijkste deel van het project.
 
 - GamePanel
 
-  Hierin wordt de game afgespeeld, we tekenen hier alles en zorgen dat de animaties op de juiste momenten worden afgespeeld.
+  Hierin wordt de game afgespeeld, we tekenen hier alles (mbv van de GameThread en SurfaceView) en zorgen dat de animaties op   de juiste momenten worden afgespeeld. Verder worden hier de functies gemaakt die invloed hebben op de gameplay, zoals  het
+  op en neer stijgen van de helicopter en het freezen van het beeld op het moment dat de speler af is.
 
 - Object
 
