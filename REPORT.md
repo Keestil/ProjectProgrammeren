@@ -1,15 +1,14 @@
-*Rapport Game-app*
+**Rapport Game-app**
+**Kees Til**
 
-Kees Til
-
-Introductie:
+**Introductie:**
 
 Mijn app is een game, een 2D game waarbij de speler als doel heeft een zo hoog mogelijke score te behalen door raketten te ontwijken. De speler hangt aan de linkerkant van het scherm in de lucht en kan door te klikken vliegen, en door niet te klikken zakt hij naar beneden. Verder zullen van rechts projectielen komen, waarbij de speler kan sterven of powerups kan pakken. Als de speler sterft wordt er een explosie afgespeeld en zal in het scherm staan of de speler zijn highscore heeft verbeterd of niet. Dit slaat de app vervolgens op.
 
 De doelgroep die ik hiermee will bereiken zijn voornamelijk de mensen die tijd moeten doden. Zo zullen mensen die moeten wachten op het stadsdeelkantoor of voor de trein, de tijd kunnen doden met deze game-app. 
 
 
-Technisch ontwerp:
+**Technisch ontwerp:**
 
 
 Ik heb gekozen om Android Studio te gebruiken in plaats van game-engines als Unity, omdat ik het gevoel had meer te kunnen leren met Android Studio. Bovendien had ik de N-puzzle app al gemaakt met Android Studio dus de software is mij meer bekend. Achteraf gezien ben ik nog steeds trots op mijn keuze hiervoor, ondanks het feit dat het spelletje er waarschijnlijk beter had uitgezien in Unity.
@@ -55,7 +54,7 @@ De java classes in mijn project zijn:
 
   Hier regelen we de animatie. Wat we kortgezegd doen is het de frames die we in Hero/Missle/Explosion hebben gemaakt snel     achter elkaar spelen. De waiting time bepaald hoeveel tijd ertussen zit.
 
-Veranderingen tov van mijn DESIGN.MD:
+**Veranderingen tov van mijn DESIGN.MD:**
 
 Eigenlijk niet heel veel, mijn product voldoet aan de minimale eisen en zelfs aan het merendeel van de bijzaken heb ik erin verwerkt. De surfaceview die ik toentertijd wou gebruiken heb ik ook geimplementeerd. Het grote verschil zit hem in de opmaak en de classes die ik heb gebruikt. 
 
