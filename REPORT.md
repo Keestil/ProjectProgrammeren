@@ -43,8 +43,14 @@ De java classes in mijn project zijn:
 
 - GamePanel
 
-  Hierin wordt de game afgespeeld, we tekenen hier alles (mbv van de GameThread en SurfaceView) en zorgen dat de animaties op   de juiste momenten worden afgespeeld. Verder worden hier de functies gemaakt die invloed hebben op de gameplay, zoals  het
-  op en neer stijgen van de helicopter en het freezen van het beeld op het moment dat de speler af is.
+  In de GamePanel gaan we het spel afspelen. Eerst importeren we de data die we in MainActivity hebben doorgegeven en maken    we de thread aan. De Holder wordt aangemaakt om SurfaceView te gebruiken en setFocusable(true) blijkt de app beter te laten   werken. We hebben nu een surfaceDestroyed en een surfaceCreated method, de surfaceChanged method gebruiken we niet, maar     het programma flipt als ik die weghaal.
+  
+  In de surfaceDestroyed method, zorgen we ervoor dat de thread goed afsluit en in de surfaceCreated method zorgen we ervoor   dat de thread afgespeeld wordt. Ik heb ervoor gekozen om the surfaceDestroyed boven de surfaceCreated te zetten voor beter   overzicht, het is conventioneel om de surfacedestroyed er eigenlijk achter te plakken.
+  
+  In de surfaceCreate methode maken we de achtergrond, de speler en de explosies, verder starten we de thread. 
+  
+  
+  
 
 - Object
 
