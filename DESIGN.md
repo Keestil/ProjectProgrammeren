@@ -14,7 +14,7 @@ moet men ge-entertained worden, anders is het een vrij waardeloos programma. Om 
 - variatie in projectielen.
 - boosts (onsterfelijk zijn, schieten).
 
-Classes die ik heb geimplementeerd:
+**Classes die ik heb geimplementeerd:**
 
 *xml*
 
