@@ -1,4 +1,5 @@
 **Rapport Game-app**
+
 **Kees Til**
 
 **Introductie:**
@@ -52,8 +53,8 @@ De java classes in mijn project zijn:
 
 - SpriteSlide
 
-  Hier regelen we de animatie. Wat we kortgezegd doen is het de frames die we in Hero/Missle/Explosion hebben gemaakt snel     achter elkaar spelen. De waiting time bepaald hoeveel tijd ertussen zit.
-
+Hier regelen we de animatie. Wat we kortgezegd doen is een lijst met frames frames die we in Hero/Missle/Explosion hebben gemaakt snel achter elkaar af spelen. De waitingTime bepaald hoeveel tijd er tussen het afspelen van de volgende frames ziet. In de update method zet ik een timer en zeg ik kortgezegd, ga naar de volgende frame als we voorbij de waitTime zijn en zet de timer weer op 0. Om errors te voorkomen beginnen we weer bij het eerste element van onze lijst als currentFrame gelijk is aan de laatste frame van de lijst. De getImage() method geeft ons de frame waar we zijn, die gebruikt wordt in de draw methods van Hero/Explosion/Missles class.
+  
 **Veranderingen tov van mijn DESIGN.MD:**
 
 Eigenlijk niet heel veel, mijn product voldoet aan de minimale eisen en zelfs aan het merendeel van de bijzaken heb ik erin verwerkt. De surfaceview die ik toentertijd wou gebruiken heb ik ook geimplementeerd. Het grote verschil zit hem in de opmaak en de classes die ik heb gebruikt. 
