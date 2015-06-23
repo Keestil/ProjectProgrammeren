@@ -18,11 +18,11 @@ De java classes in mijn project zijn:
 
 - MainActivity
 
- Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen.     Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en zal het beeld fullscreen gaan. Deze klasse is        eigenlijk het minst interessant van allemaal, gezien het feit dat de game zich voornamelijk in de GamePanel afspeelt. 
+  Hierin maak ik de MediaPlayers en de SharedPreferences aan, omdat deze class extends van Activity moet ik dat hier doen.     Verder zorg ik ervoor dat de muziek stopt wanneer men de app afsluit en zal het beeld fullscreen gaan. Deze klasse is        eigenlijk het minst interessant van allemaal, gezien het feit dat de game zich voornamelijk in de GamePanel afspeelt. 
  
 - Hero
 
-Hierin zetten we de startpositie van de helicopter. Verder bepalen we de hoogte en breedte van de spritesheet die de speler  wil gebruiken om te snijden in x aantal stukken, ik heb ervoor gekozen om alleen horizontale spritesheets te kiezen omdat dat makkelijker te programmeren was. De lijst met gesneden frames geef ik vervolgens door aan de SpriteSlide class en ik geef ook de wachttijd mee die de SpriteSlide moet aanhouden na elke frame in deze lijst.
+  Hierin zetten we de startpositie van de helicopter. Verder bepalen we de hoogte en breedte van de spritesheet die de speler   wil gebruiken om te snijden in x aantal stukken, ik heb ervoor gekozen om alleen horizontale spritesheets te kiezen omdat    dat makkelijker te programmeren was. De lijst met gesneden frames geef ik vervolgens door aan de SpriteSlide class en ik     geef ook de wachttijd mee die de SpriteSlide moet aanhouden na elke frame in deze lijst.
 
 Daarnaast moet men wat met de helicopter kunnen doen, wat in de update method gebeurt. Eerst moet de animatie natuurlijk gemaakt worden, wat gebeurt in de SpriteSlide class. Vervolgens willen we met behulp van een boolean check bepalen of de helicopter naar beneden moet vliegen of naar boven, de y-coordinaat is als hij naar beneden gaat en negatief als hij naar boven gaat. Om te voorkomen dat de helicopter uit het scherm vliegt hebben ik nog een if-statement gebruikt. Verder implementeren we een paar methods als de set-get-resetScore() en de is-setPlaying() method, die gebruikt wordt om de speler te resetten als hij afgaat.
 
