@@ -96,9 +96,18 @@ De java classes in mijn project zijn:
 
   Hier regel ik de animatie. Wat ik kortgezegd doen is een lijst met frames frames die ik in Hero/Missle/Explosion heb         gemaakt snel achter elkaar af spelen. De waitingTime bepaald hoeveel tijd er tussen het afspelen van de volgende frames      ziet. In de update method zet ik een timer en zeg ik kortgezegd, ga naar de volgende frame als ik voorbij de waitTime ben    en zet de timer weer op 0. Om errors te voorkomen begin ik weer bij het eerste element van onze lijst als currentFrame       gelijk is aan de laatste frame van de lijst. De getImage() method geeft mij de frame waar ik zijn, die gebruikt wordt in de   draw methods van Hero/Explosion/Missles class.
   
+  
+**Moeilijkhedenheden tijdens het project**
+
+
 **Veranderingen tov van mijn DESIGN.MD:**
 
 Eigenlijk niet heel veel, mijn product voldoet aan de minimale eisen en zelfs aan het merendeel van de bijzaken heb ik erin verwerkt. De surfaceview die ik toentertijd wou gebruiken heb ik ook geimplementeerd. Het grote verschil zit hem in de opmaak en de classes die ik heb gebruikt. 
 
 Ik heb gekozen om alles in één activity class (xml) te doen. Eerst wilde ik ook een CharacterActivity maken waarbij de speler een karakter kon kiezen, echter zullen er dan heel veel extra if-statements in de code voorkomen. Bovendien zullen de geschaalde sprites niet evengroot zijn waardoor ik voor iedere aparte sprite een andere scorestate zou moeten maken(anders is de highscore niet eerlijk). Ik zie niet zoveel toegevoegde waarde in extra spelers en probeer de app zo simplistische mogelijk te laten zijn, doch leuk. Vandaar de keuze van maar één speler. De LeaderboardActivity vond ik ook onnodig gezien het feit dat de bestscore altijd rechtsonder in beeld zal staan en waarschijnlijk slechts 1 speler de app zal gebruiken. Het implementeren per naam is dus een beetje overbodig, tenzij ik een online database zou maken waarbij mensen over de hele wereld hun highscores opslaan, maar dat bleek teveel werk te zijn. Ten slotte bleken SaveScore en Gravity niet nodig te zijn, doordat ik de onTouchevent functie en de SharedPreferences ontdekte die het leven een stuk makkelijker maakten. 
+
+**Bronvermelding**
+
+- http://obviam.net/
+- http://stackoverflow.com/
 
