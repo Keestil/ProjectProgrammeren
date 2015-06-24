@@ -125,9 +125,39 @@ Mediaplayer is niet mijn beste vriend. In een gameloop weet je eigenlijk al dat 
 
 Eigenlijk niet heel veel, mijn product voldoet aan de minimale eisen en zelfs aan het merendeel van de bijzaken heb ik erin verwerkt. De surfaceview die ik toentertijd wou gebruiken heb ik ook geimplementeerd. Het grote verschil zit hem in de opmaak en de classes die ik heb gebruikt. 
 
-Ik heb gekozen om alles in één activity class (xml) te doen. Eerst wilde ik ook een CharacterActivity maken waarbij de speler een karakter kon kiezen, echter zullen er dan heel veel extra if-statements in de code voorkomen. Bovendien zullen de geschaalde sprites niet evengroot zijn waardoor ik voor iedere aparte sprite een andere scorestate zou moeten maken(anders is de highscore niet eerlijk). Ik zie niet zoveel toegevoegde waarde in extra spelers en probeer de app zo simplistische mogelijk te laten zijn, doch leuk. Vandaar de keuze van maar één speler. De LeaderboardActivity vond ik ook onnodig gezien het feit dat de bestscore altijd rechtsonder in beeld zal staan en waarschijnlijk slechts 1 speler de app zal gebruiken. Het implementeren per naam is dus een beetje overbodig, tenzij ik een online database zou maken waarbij mensen over de hele wereld hun highscores opslaan, maar dat bleek teveel werk te zijn. Ten slotte bleken SaveScore en Gravity niet nodig te zijn, doordat ik de onTouchevent functie en de SharedPreferences ontdekte die het leven een stuk makkelijker maakten. 
+Ik heb gekozen om alles in één activity class (xml) te doen. Eerst wilde ik ook een CharacterActivity maken waarbij de speler een karakter kon kiezen, echter zullen er dan heel veel extra if-statements in de code voorkomen. Bovendien zullen de geschaalde sprites niet evengroot zijn waardoor ik voor iedere aparte sprite een andere scorestate zou moeten maken(anders is de highscore niet eerlijk). Ik zie niet zoveel toegevoegde waarde in extra spelers en probeer de app zo simplistische mogelijk te laten zijn, doch leuk. Vandaar de keuze van maar één speler. 
+
+De LeaderboardActivity vond ik ook onnodig gezien het feit dat de bestscore altijd rechtsonder in beeld zal staan en waarschijnlijk slechts 1 speler de app zal gebruiken. Het implementeren per naam is dus een beetje overbodig, tenzij ik een online database zou maken waarbij mensen over de hele wereld hun highscores opslaan, maar dat bleek teveel werk te zijn.
+
+Daarnaast bleken SaveScore en Gravity niet nodig te zijn, doordat ik de onTouchevent functie en de SharedPreferences ontdekte die het leven een stuk makkelijker maakten. 
+
+Tnslott wou ik toentertijd ook een bewegende achtergrond maken, echter vond dat het scherm al afleidend genoeg was met al die bewegende projectielen en de bewegende speler. Ik heb dus gekozen om dit niet te doen en mijn tijd beter te kunnen investeren in het implementeren van geluid.
 
 Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten in het menu. Ik merkte dat het geluid een beetje irritant kan zijn dus deze optie wou ik graag toevoegen aan de app.
+
+**Korte samenvatting**
+
+*Mijn App kan de volgende dingen:*
+
+- Sprites afspelen.
+- Speler besturen naar boven en onder.
+- Verschillende projectielen aanmaken om een bepaalde tijd en dezen van rechts naar links laten gaan.
+- Verschillende eigenschappen meegeven aan deze projectielen, zoals het veranderen in een schotel of het exploderen.
+- Score bijhouden en opslaan.
+- Explosie afspelen met geluid.
+- Achtergrondmuziek maken.
+- Muziek aan/uit doen.
+- Bepalen of een speler zijn score heeft verbroken of niet.
+
+*Eventueele tekortkomingen:*
+
+- Variatie in power-ups.
+- Leaderboards voor alle gebruikers van de app, dus op verschillende telefoons.
+- Muren boven en onder waar de speler door kan sterven.
+- Meerdere characters.
+- Meerdere achtergronden.
+- Zelf muziek als achtergrondmuziek instellen.
+- Cheat-codes
 
 **Bronvermelding**
 
