@@ -97,8 +97,15 @@ De java classes in mijn project zijn:
   Hier regel ik de animatie. Wat ik kortgezegd doen is een lijst met frames frames die ik in Hero/Missle/Explosion heb         gemaakt snel achter elkaar af spelen. De waitingTime bepaald hoeveel tijd er tussen het afspelen van de volgende frames      ziet. In de update method zet ik een timer en zeg ik kortgezegd, ga naar de volgende frame als ik voorbij de waitTime ben    en zet de timer weer op 0. Om errors te voorkomen begin ik weer bij het eerste element van onze lijst als currentFrame       gelijk is aan de laatste frame van de lijst. De getImage() method geeft mij de frame waar ik zijn, die gebruikt wordt in de   draw methods van Hero/Explosion/Missles class.
   
   
-**Moeilijkhedenheden tijdens het project**
+**Moeilijkheden tijdens het project:**
 
+Tijdens dit project ben ik op vele moeilijkheden gestuit, om u een gehele waslijst te besparen bespreek ik hier 5 moeilijkheden waar ik het langst mee bezig mee ben geweest.
+
+1) Het maken van de gameloop.
+2) De animatie van de sprites maken.
+3) De projectielen van rechts naar links laten gaan om een bepaalde tijd.
+4) De freeze-state maken. 
+5) Het geluid regelen.
 
 **Veranderingen tov van mijn DESIGN.MD:**
 
