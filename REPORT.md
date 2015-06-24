@@ -47,7 +47,7 @@ De java classes in mijn project zijn:
   
   ![Image of surfaceView](http://obviam.net/wp-content/uploads/2010/08/Gameloop-3.png)
   
-  Omdat we willen dat de in de GamePanel alles gebeurt hebben we de getHolder().add.Callback(this) in de onCreate method()     toegevoegd. Nu alles goedstaat hoeven we alleen de gameloop te starten en te controleren in de gamepanel (meer uitleg        hierover komt terug in het GamePanel stukje). In de gamethread zelf updaten we de game en tekenen we de nieuwe staat en      doen dit oneindig lang. omdat we dus oneindig lang de taak input-update-render uitvoeren, zult u in de code merken dat
+  Omdat we willen dat de in de GamePanel alles gebeurt hebben we de getHolder().add.Callback(this) in de onCreate method()     toegevoegd. Nu alles goedstaat hoeven we alleen de gameloop te starten en te controleren in de gamepanel (meer uitleg        hierover komt terug in het GamePanel stukje). In de GameThread zelf updaten we de game en tekenen we de nieuwe staat en      doen dit oneindig lang. omdat we dus oneindig lang de taak input-update-render uitvoeren, zult u in de code merken dat
   dit veel geheugen kost, en dat ik probeer zo efficient mogelijk te programmeren om dit te voorkomen.
 
 - GamePanel
