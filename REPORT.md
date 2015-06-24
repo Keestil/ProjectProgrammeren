@@ -102,16 +102,32 @@ De java classes in mijn project zijn:
 Tijdens dit project ben ik op vele moeilijkheden gestuit, om u een gehele waslijst te besparen bespreek ik hier 5 moeilijkheden waar ik het langst mee bezig mee ben geweest.
 
 1) Het maken van de gameloop.
+
+Ik heb in het begin een paar Gameloops gecopy-paste om te zien of ze werkten, echter was dit vrij naar omdat elke game loop anders is en er makkelijk problemen kunnenn ontstaan. Zo heb ik mijn programma opnieuw moeten programmeren omdat ik geen goede update method had, maar met behulp van de website http://obviam.net/ ben ik erachter gekomen hoe ik de ideale gameloop voor deze specifieke game moest maken. Ik raad iedereen die een game-app maakt deze website te bezoeken, er is zeer veel informatie te vinden!
+
 2) De animatie van de sprites maken.
+
+Dit was in het begin vrij lastig voor mij, omdat ik er nooit mee had gewerkt. Een van mijn doelen was ook om dit onder de knie te krijgen voordat ik aan het project begon. De moeilijkheid lag hem in de animatieklasse, gelukkig wist ik dat je hoogstwaarschijnlijk zoals in tekenfilms de plaatjes snel achter elkaar moest spelen, deze tactiek heb ik dan ook toe moeten passen. Na veel documentaties gelezen te hebben over de bitmap arraylists en de timer-truuk met de system.nanotime(), kwam ik wel mooi uit. Hier kwam ik er ook achter dat Object-orientated programming heel handig zou worden, omdat mensen op stackoverflow me dit adviseerden. De Missles/Explosion en Hero waren daarom niet zo moeilijk te maken nadat die Spriteslide klaar was.
+
 3) De projectielen van rechts naar links laten gaan om een bepaalde tijd.
+
+Dit bleek veel moeilijker dan gedacht, ik wou eerst een lijst maken en daarin allerlei projectielen stoppen, echter doordat de gamethread een infinite loop heeft werd deze lijst ook oneindig lang. Dat is natuurlijk niet handig en het programma crashte dan ook meteen. Uiteindelijk heeft Jaap me verteld dat ik misschien een eindige lijst kon maken waarbij ik willekeurige elementen eruit pak en deze vervolgens teken. Dit heb ik ook geprobeerd maar ik kwam niet echt mooi uit. Toen bedacht ik mij dat de lijst nooit oneindig lang wordt als je de projectielen verwijderd uit de lijst als dezen uit het beeld verdwenen. Het algoritme werkte maar de animatie niet, Ben zag echter dat ik de lijst niet had aangemaakt en java had dat niet als error aangegeven. Na het maken van deze animatie was de rest niet meer zo immens lastig.
+
 4) De freeze-state maken. 
+
+Dit was een struikelblokje, echter met ernstig veel boolean statements kwam ik er wel uit. Ik denk achteraf dat dit misschien wel makkelijker had gekund maar ik zie niet in hoe. Het moeilijkste was om na te gaan wat ik nou precies wilde doen in deze freezedstate en hoe dit erin te verwerken. Voornamelijk de combinaties van geluid en animatie waren irritant.
+
 5) Het geluid regelen.
 
-**Veranderingen tov van mijn DESIGN.MD:**
+Mediaplayer is niet mijn beste vriend. In een gameloop weet je eigenlijk al dat de muziek oneindig vaak afgespeeld zal worden als je de geluiden gewoon afspeelt. Echter met behulp van een best wel mooi algoritme heb ik het voor elkaar weten te krijgen om de muziek en de explosies maar één keer af te spelen. In het begin herkende mijn android studio de mp3/wav files niet, maar na wat documentatie gelezen te hebben kwam dit wel goed. Dit was wel vrij zonde van mijn tijd gezien het feit ik ook nog misschien met die extra uren een database met allemaal scores van verschillende spelers kon maken. 
+
+**Veranderingen TOV van mijn DESIGN.MD:**
 
 Eigenlijk niet heel veel, mijn product voldoet aan de minimale eisen en zelfs aan het merendeel van de bijzaken heb ik erin verwerkt. De surfaceview die ik toentertijd wou gebruiken heb ik ook geimplementeerd. Het grote verschil zit hem in de opmaak en de classes die ik heb gebruikt. 
 
 Ik heb gekozen om alles in één activity class (xml) te doen. Eerst wilde ik ook een CharacterActivity maken waarbij de speler een karakter kon kiezen, echter zullen er dan heel veel extra if-statements in de code voorkomen. Bovendien zullen de geschaalde sprites niet evengroot zijn waardoor ik voor iedere aparte sprite een andere scorestate zou moeten maken(anders is de highscore niet eerlijk). Ik zie niet zoveel toegevoegde waarde in extra spelers en probeer de app zo simplistische mogelijk te laten zijn, doch leuk. Vandaar de keuze van maar één speler. De LeaderboardActivity vond ik ook onnodig gezien het feit dat de bestscore altijd rechtsonder in beeld zal staan en waarschijnlijk slechts 1 speler de app zal gebruiken. Het implementeren per naam is dus een beetje overbodig, tenzij ik een online database zou maken waarbij mensen over de hele wereld hun highscores opslaan, maar dat bleek teveel werk te zijn. Ten slotte bleken SaveScore en Gravity niet nodig te zijn, doordat ik de onTouchevent functie en de SharedPreferences ontdekte die het leven een stuk makkelijker maakten. 
+
+Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten in het menu. Ik merkte dat het geluid een beetje irritant kan zijn dus deze optie wou ik graag toevoegen aan de app.
 
 **Bronvermelding**
 
