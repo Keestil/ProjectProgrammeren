@@ -39,7 +39,11 @@ De java classes in mijn project zijn:
 
 - GameThread
 
-  In deze thread zorg ik dat de taken worden uitgevoerd, in dit geval dus het tekenen en updaten van het spel. De gameloop     wordt hierin uitgevoerd. Deze klasse is dus de basis van het spel en in mijn ogen het belangrijkste deel van het project.
+  In deze thread maken we de game loop, de game loop is het hart van elk spel. Wat we hier doen is data inputten, het spel     updaten en vervolgens deze update uitvoeren. En dit doen we dan oneindig vaak
+  
+  ![Image of Yaktocat](http://obviam.net/wp-content/uploads/2010/08/Gameloop-1.png)
+  
+  het updaten van het spel, in dit geval dus het tekenen en updaten van het spel. De gameloop     wordt hierin uitgevoerd. Deze klasse is dus de basis van het spel en in mijn ogen het belangrijkste deel van het project.
 
 - GamePanel
 
