@@ -12,7 +12,7 @@ public class Hero extends Object{
     private boolean up;
     private boolean playing;
 
-    public Hero(Bitmap bmp, int w, int h, int frames) {
+    public Hero(Bitmap bmp, int w, int h, int frames){
 
         x = 100;
         y = game.HEIGHT / 2;
@@ -26,7 +26,7 @@ public class Hero extends Object{
         spritesheet = bmp;
 
         // this loop crops the images
-        for (int i = 0; i < cropimage.length; i++) {
+        for (int i = 0; i < cropimage.length; i++){
             cropimage[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
         }
 
@@ -40,37 +40,44 @@ public class Hero extends Object{
         up = b;
     }
 
-    public void update() {
+    public void update(){
+
         //updating the animation
         animation.update();
 
         //Flying up or down
         if(up){
             y_move = -20;
-        }if(!up){
+        }
+
+        if(!up){
             y_move = 20;
         }
 
         //checking the bounds, I want the helicopter to stay above the text score, thats why I have
         //an extra 63.
-        if (y > game.HEIGHT  - spritesheet.getHeight()-y_move) {
+        if (y > game.HEIGHT  - spritesheet.getHeight()-y_move){
             y_move = 0;
         }
-        if (y + y_move < 0) {
+
+        if (y + y_move < 0){
             y_move = 0;
         }
         y = y + y_move;
+
         //we need to reset the movement, because we have an infinite loop in the gamepanel.
         y_move = 0;
     }
 
     // here we draw the frames
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas){
+
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }
 
     //all these functions below are pretty obvious
     public int getScore(){
+
         return score;
     }
 

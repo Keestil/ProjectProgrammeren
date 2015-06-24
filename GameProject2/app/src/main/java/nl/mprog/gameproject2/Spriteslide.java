@@ -2,7 +2,7 @@ package nl.mprog.gameproject2;
 
 import android.graphics.Bitmap;
 
-public class Spriteslide {
+public class Spriteslide{
 
     private Bitmap[] frames;
     private int currentFrame;
@@ -11,7 +11,7 @@ public class Spriteslide {
 
     //setting up the number of frames i want to play and starting a timer
     //for the update method
-    public void setFrames(Bitmap[] frames) {
+    public void setFrames(Bitmap[] frames){
         this.frames = frames;
         currentFrame = 0;
         startTime = System.nanoTime();
@@ -27,13 +27,15 @@ public class Spriteslide {
         currentFrame = i;
     }
 
-    public void update() {
+    public void update(){
+
         //If the time passed our waitTime we want to go to the next frame and start the timer again
         long timePassed = (System.nanoTime()-startTime)/1000000;
-        if(timePassed>waitTime) {
+        if(timePassed>waitTime){
             currentFrame++;
             startTime = System.nanoTime();
         }
+
         //Here we want to start at the first frame again
         if(currentFrame == frames.length){
             currentFrame = 0;
@@ -45,7 +47,4 @@ public class Spriteslide {
         return frames[currentFrame];
     }
 
-//    public int getFrame(){
-//        return currentFrame;
-//    }
 }
