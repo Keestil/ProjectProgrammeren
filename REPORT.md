@@ -39,11 +39,16 @@ De java classes in mijn project zijn:
 
 - GameThread
 
-  In deze thread maken we de game loop, de game loop is het hart van elk spel. Wat we hier doen is data inputten, het spel     updaten en vervolgens deze update uitvoeren. En dit doen we dan oneindig vaak
+  In deze thread maken we de game loop, de game loop is het hart van elk spel. Wat we hier doen is data inputten, het spel     updaten en vervolgens deze update uitvoeren. En dit doen we dan oneindig vaak, hieronder is een versimpelde weergave         hiervan:
   
-  ![Image of Yaktocat](http://obviam.net/wp-content/uploads/2010/08/Gameloop-1.png)
+  ![Image of gameloop](http://obviam.net/wp-content/uploads/2010/08/Gameloop-1.png)
   
-  het updaten van het spel, in dit geval dus het tekenen en updaten van het spel. De gameloop     wordt hierin uitgevoerd. Deze klasse is dus de basis van het spel en in mijn ogen het belangrijkste deel van het project.
+  In onze Activity maken we een surfaceView, hierin kunnen we als het ware onze app op tekenen. Het volgende plaatje geeft     dat goed weer. 
+  
+  ![Image of surfaceView](http://obviam.net/wp-content/uploads/2010/08/Gameloop-3.png)
+  
+  Omdat we willen dat de in de GamePanel alles gebeurt hebben we de getHolder().add.Callback(this) in de onCreate method()     toegevoegd. Nu alles goedstaat hoeven we alleen de gameloop te starten en te controleren in de gamepanel (meer uitleg        hierover komt terug in het GamePanel stukje). In de gamethread zelf updaten we de game en tekenen we de nieuwe staat en      doen dit oneindig lang. omdat we dus oneindig lang de taak input-->update-->render uitvoeren, zult u in de code merken dat
+  dit veel geheugen kost, en dat ik probeer zo efficient mogelijk te programmeren om dit te voorkomen.
 
 - GamePanel
 
