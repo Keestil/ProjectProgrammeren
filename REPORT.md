@@ -54,7 +54,7 @@ De java classes in mijn project zijn:
   
   In de update method speel ik de achtergrondmuziek af, omdat het een infinite thread is, moet ik een counter zetten en        speel ik de muziek pas af als deze counter 0 is. Daarna tellen ik 1 op bij de counter zodat hij de muziek maar 1 keer        afspeelt. De counter wordt in de newGame() method weer op 0 gezet.
   
-  *speler speelt:*
+  **speler speelt:**
   
   Als de speler speelt wil ik dat de game the Missles update en natuurlijk de speler. De speler update ik meteen, maar         bij de missles wil ik we de update method om een bepaalde tijd updaten, anders worden ze allemaal tegelijkertijd afgevuurd.
   Dus ik begin met het zetten van een timer. Ik maak een lege lijst aan en zeg wacht x aantal milliseconden voordat je de      volgende missle maakt. Naarmate de speler een hogere score haalt zal het aanmaken van de rakketten sneller gaan. 
@@ -63,7 +63,7 @@ De java classes in mijn project zijn:
   
   Voor memory issues kies ik er vervolgens voor om de missles uit de lijst te halen als ze buiten het beeld vliegen. Het       moment dat ze verdwijnen krijgt de speler ook punten. Voor kleine missles en powerups krijg je 1 punt en voor grote          raketten 5. 
   
-  *speler speelt niet:*
+  **speler speelt niet:**
   
   Dit is het punt waar we het spel willen freezen of niet. Ik heb een freeze boolean aan het begin true gezet, maar deze       meteen op false gezet wanneer de speler begon. Als de speler dus af is en in de fase komt waar hij niet speelt zet ik        freeze dus op true. Nu wil ik dat tijdens de freeze state de volgende dingen gebeuren:
   
