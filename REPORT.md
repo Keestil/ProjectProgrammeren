@@ -161,6 +161,15 @@ Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten 
 
 **Bronvermelding**
 
-- http://obviam.net/
+- http://obviam.net/index.php/a-very-basic-the-game-loop-for-android/
+- http://obviam.net/index.php/the-android-game-loop/
+- http://obviam.net/index.php/sprite-animation-with-android/
+
 - http://stackoverflow.com/
+
+- https://www.youtube.com/watch?v=V1ocJmXeQ28
+- https://www.youtube.com/watch?v=I1qTZaUcFX0
+- https://www.youtube.com/watch?v=rJcm5Oyi3YA
+
+- http://developer.android.com/reference/packages.html
 
