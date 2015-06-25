@@ -23,13 +23,14 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 
 - week 4: alles wat in week 2-3 niet helemaal af was afmaken en verslag maken
 
+**Structuur app:**
+
+![Structuur app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Sturtuur.png)
+
 **Screenshot app:**
 
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Gameplay.png)
 
-**Structuur app:**
-
-![Structuur app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Sturtuur.png)
 
 **Licentie:**
 
