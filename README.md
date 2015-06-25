@@ -13,8 +13,9 @@ Verder zal er een explosie worden afgespeeld als de speler af is. Behalve afgaan
 
 De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden, dit spel zal ze dan bezighouden zodat ze niet gefrustreerd raken tijdens het wachten voor een sollicitatiegesprek, doktersafspraak, achtbaanrit, etcetera. Dit spel is niet bedoeld om in de vrije tijd te spelen, omdat het aanbod van andere spellen veel te hoog is en deze spellen veel diepere content hebben. 
 
-**Schets van de app:**
+**Screenshot app:**
 
+![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Gameplay.png)
 
 **Planning project:**
 
