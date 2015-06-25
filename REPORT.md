@@ -165,7 +165,8 @@ Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten 
 - http://obviam.net/index.php/a-very-basic-the-game-loop-for-android/
 - http://obviam.net/index.php/the-android-game-loop/
 - http://obviam.net/index.php/sprite-animation-with-android/
-- http://stackoverflow.com/
+- http://docs.oracle.com/javase/tutorial/java/concepts/index.html
+- http://stackoverflow.com/questions/19881635/cutting-sprite-sheets-into-individual-bitmaps-dynamically-with-variable-frame-si
 - http://www.edu4java.com/en/androidgame/androidgame1.html
 - https://www.youtube.com/watch?v=V1ocJmXeQ28
 - https://www.youtube.com/watch?v=I1qTZaUcFX0
