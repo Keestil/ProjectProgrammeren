@@ -13,6 +13,8 @@ public class Hero extends Object{
     private boolean playing;
 
     public Hero(Bitmap bmp, int w, int h, int frames){
+
+        //setting the starting position of the chopper
         x = 100;
         y = game.HEIGHT / 2;
         y_move = 0;

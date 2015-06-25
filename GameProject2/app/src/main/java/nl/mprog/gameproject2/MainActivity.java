@@ -53,7 +53,7 @@ public class MainActivity extends Activity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
-        //here I am creating a menu for the sounds
+        //here I am creating a menu for the sounds and giving them an ID when pressed
         switch (item.getItemId()){
             case R.id.soundOn:
                 SharedPreferences.Editor editor = data.edit();
@@ -64,7 +64,7 @@ public class MainActivity extends Activity{
 
             case R.id.soundOf:
                 SharedPreferences.Editor editor1 = data.edit();
-                editor1.putInt("backgroundSound", 0);
+                editor1.putInt("backgroundSound",0);
                 editor1.putInt("explosionSound",0);
                 editor1.commit();
                 return true;
@@ -80,7 +80,7 @@ public class MainActivity extends Activity{
         super.onPause();{
 
             //only stop when music is playing
-            if(data.getInt("backgroundSound", 1) == 1) {
+            if(data.getInt("backgroundSound",1) == 1) {
                 backgroundSound.stop();
                 explosionSound.stop();
             }

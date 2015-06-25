@@ -203,8 +203,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 //ID is a rocket, but proceeds if the ID is a powerup
                 if (touch(missles.get(i), player)){
 
- //                   //could use a switch/case here but i prefer not to.
- //                   //when the projectile is a missle
+                    //could use a switch/case here but i prefer not to.
                     if (missles.get(i).getID() == 0 || missles.get(i).getID() == 3){
                         missles.remove(i);
                         player.setPlaying(false);
@@ -326,7 +325,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             canvas.drawText("SOUND CAN BE ADJUSTED IN THE MENU",WIDTH/2,(HEIGHT/2)+420,text);
         }
 
-        //this is writen when player and missle collide
+        //this is written when player and missle collide
         if ((!player.isPlaying()) && (freeze) && (!newgame)){
             suckText = new Paint();
             suckText.setColor(Color.RED);
@@ -402,9 +401,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             missles.add(missle);
         }
 
-        //once in 5 missles, make a random powerup for demo purposes, set this on 25 for the
+        //once in 5 missles, make a random power-up for demo purposes, set this on 25 for the
         //better game experience
-        if (numMissles % 5 == 0 && numMissles !=0){
+        if (numMissles % 5 == 0 && numMissles != 0){
             int randompowerup = random.nextInt(2);
 
             //could use switch case, but i prefer this. I noticed that the switch-case
@@ -426,7 +425,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             //make small missles in all other cases
         }
 
-        if (numMissles % 10 !=0 && numMissles % 25 != 0){
+        if (numMissles % 10 != 0 && numMissles % 25 != 0){
             missle = new Missles(BitmapFactory.decodeResource(getResources(),
                     R.mipmap.missile), WIDTH + 10,randomNum3, 90, 30, 13);
             missle.setID(0);
@@ -449,7 +448,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public void playMusic(){
 
         //Here we play the music and remember that we played it with musicPlayed boolean
-        if (playMusic && saveState.getInt("backgroundSound",1)==1 && player.isPlaying()){
+        if (playMusic && saveState.getInt("backgroundSound",1) == 1 && player.isPlaying()){
             while (musicCounter < 1){
                 coolMusic.setLooping(true);
                 coolMusic.start();
@@ -459,7 +458,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         }
 
         //here we say, pause de music if you remembered we played it, else do nothing
-        if (playMusic && saveState.getInt("backgroundSound", 1)==0 && player.isPlaying()){
+        if (playMusic && saveState.getInt("backgroundSound",1) == 0 && player.isPlaying()){
             if (musicPlayed){
                 coolMusic.pause();
                 coolMusic.seekTo(0);
