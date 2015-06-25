@@ -1,6 +1,6 @@
 # ProjectProgrammeren
 
-De naam van mijn app is GameProject2, omdat ik bij Native App studio all een gameproject heb gedaan.
+De naam van mijn app is GameProject2, omdat ik bij Native App studio al een game project heb gemaakt. Dit is dus mijn 2de game project :).
 
 **App-plan:**
 
