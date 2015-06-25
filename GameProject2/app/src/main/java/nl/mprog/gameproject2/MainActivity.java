@@ -33,7 +33,8 @@ public class MainActivity extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //set to full screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //make sounds
         explosionSound = MediaPlayer.create(this, R.raw.explosion02);
@@ -80,6 +81,7 @@ public class MainActivity extends Activity{
     protected void onPause(){
         super.onPause();{
 
+            //only stop when music is playing
             if(data.getInt("backgroundSound", 1) == 1) {
                 backgroundSound.stop();
                 explosionSound.stop();

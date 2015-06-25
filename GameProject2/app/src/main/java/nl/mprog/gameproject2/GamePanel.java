@@ -8,9 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-//import android.media.MediaPlayer;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -50,7 +48,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private boolean playMusic = false;
     private boolean playSound = false;
     private boolean musicPlayed = false;
-    private boolean soundPlayed = false;
     private boolean detonate = false;
 
     //the texts
@@ -69,7 +66,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Random random = new Random();
 
 
-    public GamePanel(Context context,SharedPreferences data, MediaPlayer explosionSound,MediaPlayer backgroundSound){
+    public GamePanel(Context context,SharedPreferences data,
+                     MediaPlayer explosionSound,MediaPlayer backgroundSound){
         super(context);
 
         //importing data from mainactivity class
@@ -118,8 +116,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         scaledbmp = Bitmap.createScaledBitmap(background, newWidth, newHeight, true);
 
         //making the player and explosion
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
-        explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.mipmap.explosion), 100, 256, 20);
+        player = new Hero(BitmapFactory.decodeResource(getResources(),
+                R.mipmap.helicopter_metalslug), 146, 91, 4);
+        explosion = new Explosion(BitmapFactory.decodeResource(getResources(),
+                R.mipmap.explosion), 100, 256, 20);
         explosion.setX(player.getX());
 
         //starting the thread
@@ -187,7 +187,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
                 //can make a function out of this, Adjust missleSpeed when missles are made.
                 if (missles.get(i).getmissleSpeed()<50){
-                    missles.get(i).setmissleSpeed((long) (missles.get(i).getmissleSpeed() + (score / (float) 100)));
+                    missles.get(i).setmissleSpeed((long) (missles.get(i).getmissleSpeed() +
+                            (score / (float) 100)));
 
                 } else{
                     missles.get(i).setmissleSpeed((long) 50);
@@ -200,7 +201,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 //ID is a rocket, but proceeds if the ID is a powerup
                 if (touch(missles.get(i), player)){
 
-                    //when the projectile is a missle
+ //                   //could use a switch/case here but i prefer not to.
+ //                   //when the projectile is a missle
                     if (missles.get(i).getID() == 0 || missles.get(i).getID() == 3){
                         missles.remove(i);
                         player.setPlaying(false);
@@ -209,14 +211,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
                     //when the projectile is not a missle
                     if (missles.get(i).getID() == 1){
-                        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.saucer), 114, 76, 12);
+                        player = new Hero(BitmapFactory.decodeResource(getResources(),
+                                R.mipmap.saucer), 114, 76, 12);
                         player.setY(missles.get(i).getY());
                         missles.remove(i);
                         player.setPlaying(true);
                     }
 
                     if (missles.get(i).getID() == 2){
-                        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+                        player = new Hero(BitmapFactory.decodeResource(getResources(),
+                                R.mipmap.helicopter_metalslug), 146, 91, 4);
                         player.setY(missles.get(i).getY());
                         missles.remove(i);
                         player.setPlaying(true);
@@ -255,9 +259,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 deadTime = System.nanoTime();
                 explosion.setY(player.getY() - 120);
                 detonate = true;
-                playSound = true;
 
-                //check wheter de music has been played and if the music is playing.
+                //only play sound when menu button sound on is pressed
+                if(saveState.getInt("explosionSound",1) == 1) {
+                    playSound = true;
+                }
+
+                //check whether de music has been played and if the music is playing.
                 if(musicPlayed) {
                     coolMusic.pause();
                     coolMusic.seekTo(0);
@@ -266,22 +274,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             deadTimepassed = (System.nanoTime() - deadTime)/1000000;
             explosion.update();
 
-            if (playSound && saveState.getInt("explosionSound",1) == 1){
-                while(counter<1){
-                    Log.d(">>>>>>", "boomsound");
-                    boomSound.start();
-                    soundPlayed = true;
-                    counter++;
-                }
-            }
-
-            if (playSound && saveState.getInt("explosionSound",1) == 0){
-                Log.d(">>>>>>", "hi");
-                if(soundPlayed){
-                    counter = 0;
-                    soundPlayed = false;
-                }
-            }
+            //play the sound of the explosion
+            playExplosion();
 
             //here the game freezes before starting a new game
             if ((deadTimepassed > 2000) && (!newgame)){
@@ -311,7 +305,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if (detonate){
             explosion.draw(canvas);
         }
-
         textView(canvas);
     }
 
@@ -360,12 +353,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             boomSound.seekTo(0);
         }
 
+        //updating best score
         if (player.getScore() > saveState.getInt("new best",0)){
             best = player.getScore();
             SharedPreferences.Editor editor = saveState.edit();
             editor.putInt("new best",best);
             editor.commit();
         }
+
+        //reset everything.
         missles.clear();
         player.resetScore();
         player.setY(HEIGHT / 2);
@@ -378,7 +374,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         numMissles = 0;
 
         newgame = true;
-        soundPlayed = false;
         musicPlayed = false;
         detonate = false;
         playSound = false;
@@ -390,12 +385,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     //makes missles in a list
     public void makeMissles(){
         numMissles ++;
-        int randomNum = random.nextInt(HEIGHT - 70);
+
+        //making three of these to avoid situations where projectiles are made on the smae spot
+        int randomNum1 = random.nextInt(HEIGHT - 70);
+        int randomNum2 = random.nextInt(HEIGHT - 70);
+        int randomNum3 = random.nextInt(HEIGHT - 70);
 
         //once in 10 missles, make a big missle
         if (numMissles % 10 == 0 && numMissles != 0){
             missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
+                    R.mipmap.large_missles), WIDTH + 10, randomNum1, 270, 68, 12);
             missle.setID(3);
             missles.add(missle);
 
@@ -406,17 +405,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if (numMissles % 25 == 0 && numMissles !=0){
             int randompowerup = random.nextInt(2);
 
-            //could use switch case, but i prefer this
+            //could use switch case, but i prefer this. I noticed that the switch-case
+            //made my game more laggy so that's why i chose this.
             if (randompowerup == 0){
                 missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
+                        R.mipmap.chicken_powerup), WIDTH + 10, randomNum2, 46, 40, 1);
                 missle.setID(1);
                 missles.add(missle);
             }
 
             if (randompowerup == 1){
                 missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
+                        R.mipmap.helicopterpowerup), WIDTH + 10, randomNum2, 42, 40, 1);
                 missle.setID(2);
                 missles.add(missle);
             }
@@ -426,7 +426,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         if (numMissles % 10 !=0 && numMissles % 25 != 0){
             missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
+                    R.mipmap.missile), WIDTH + 10,randomNum3, 90, 30, 13);
             missle.setID(0);
             missles.add(missle);
         }
@@ -463,6 +463,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 coolMusic.seekTo(0);
                 musicCounter = 0;
                 musicPlayed = false;
+            }
+        }
+    }
+
+    //play explosion only if we want to play the sound
+    public void playExplosion(){
+
+        if (playSound){
+            while(counter<1){
+                boomSound.start();
+                counter++;
             }
         }
     }
