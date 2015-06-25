@@ -31,3 +31,6 @@ week 3: Highscores bouwen met naam
 week 4: puntjes op de i en presenteren
 
 
+*License:*
+
+Copyright (c) 2015 KeesTil, some rights reserved to SNK Playmore
