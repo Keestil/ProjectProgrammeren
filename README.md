@@ -2,7 +2,7 @@
 
 De naam van mijn app is GameProject2, omdat ik bij Native App studio all een gameproject heb gedaan.
 
-App-plan:
+**App-plan:**
 
 Voor dit project ben ik van plan een 2D platformer te maken waarbij links een sprite in de lucht hangt en deze een
 animatie maakt alsof het een vliegende sprite is. Verder ga ik aan de projectielen die van rechts komen ook een animatie weergeven. Ik heb er voor gekozen om de achtergrond niet te laten bewegen omdat dat een afleidend effect zou hebben. 
@@ -14,17 +14,16 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 **Schets van de app:**
 
 
-*Planning voordat ik het project begon:*
+**Planning project:**
 
-- week 1: sprites maken en achtergrond maken, ook proberen sprites te laten bewegen!
+- week 1: Gamloop bouwen.
 
-- week 2: Sprites in de lucht laten hangen en zwaartekracht maken, ook klikken moet dan werken. Verder moeten projectielen al
-vliegen op niet-willekeurige manier.
+- week 2: Animaties en classes bouwen
 
-- week 3: Highscores bouwen met naam.
+- week 3: Highscores en muziek implementeren
 
-- week 4: puntjes op de i en presenteren.
+- week 4: alles wat in week 2-3 niet helemaal af was afmaken en verslag maken
 
-**Licencie:**
+**Licentie:**
 
 Copyright (c) 2015 KeesTil, sommige rechten verleend aan SNK Playmore
