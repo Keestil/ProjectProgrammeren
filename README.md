@@ -30,7 +30,6 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 **Screenshot app:**
 
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay1.png)
-![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay2.png)
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay3.png)
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay4.png)
 
