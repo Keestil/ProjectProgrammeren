@@ -24,8 +24,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private SharedPreferences saveState;
 
     //here we just make the width and height, adjust this if playing on another mobile!
-    public static final int WIDTH = 900;
-    public static final int HEIGHT = 1780;
+    public static final int SCREENWIDTH = 900;
+    public static final int SCREENHEIGHT = 1780;
 
     //the timers
     private long misslesStarttime;
@@ -315,14 +315,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         text = new Paint();
         text.setColor(Color.BLACK);
         text.setTextSize(30);
-        canvas.drawText("SCORE: " + player.getScore(),WIDTH - 50,HEIGHT - 70,text);
-        canvas.drawText("BEST: " + saveState.getInt("new best",0), WIDTH - 50, HEIGHT - 20, text);
+        canvas.drawText("SCORE: " + player.getScore(), SCREENWIDTH - 50, SCREENHEIGHT - 70,text);
+        canvas.drawText("BEST: " + saveState.getInt("new best",0), SCREENWIDTH - 50, SCREENHEIGHT - 20, text);
 
         //this is written in the beginning state
         if ((!player.isPlaying()) && (freeze) && (newgame)){
-            canvas.drawText("TOUCH THE SCREEN TO START THE GAME",WIDTH/2,HEIGHT/2,text);
-            canvas.drawText("PRESS TO GO UP, RELEASE TO GO DOWN",WIDTH/2,(HEIGHT/2)+70,text);
-            canvas.drawText("SOUND CAN BE ADJUSTED IN THE MENU",WIDTH/2,(HEIGHT/2)+420,text);
+            canvas.drawText("TOUCH THE SCREEN TO START THE GAME", SCREENWIDTH /2, SCREENHEIGHT /2,text);
+            canvas.drawText("PRESS TO GO UP, RELEASE TO GO DOWN", SCREENWIDTH /2,(SCREENHEIGHT /2)+70,text);
+            canvas.drawText("SOUND CAN BE ADJUSTED IN THE MENU", SCREENWIDTH /2,(SCREENHEIGHT /2)+420,text);
         }
 
         //this is written when player and missle collide
@@ -334,14 +334,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             bestText = new Paint();
             bestText.setColor(Color.GREEN);
             bestText.setTextSize(30);
-            canvas.drawText("SCORE: " + player.getScore(), WIDTH - 50, HEIGHT - 70,text);
+            canvas.drawText("SCORE: " + player.getScore(), SCREENWIDTH - 50, SCREENHEIGHT - 70,text);
 
             if (player.getScore() <= saveState.getInt("new best",0)){
-                canvas.drawText("YOU SUCK!",WIDTH/2,HEIGHT/2,suckText);
+                canvas.drawText("YOU SUCK!", SCREENWIDTH /2, SCREENHEIGHT /2,suckText);
             }
 
             if (player.getScore() > saveState.getInt("new best",0)){
-                canvas.drawText("NEW BEST!",WIDTH/2,HEIGHT/2,bestText);
+                canvas.drawText("NEW BEST!", SCREENWIDTH /2, SCREENHEIGHT /2,bestText);
             }
         }
     }
@@ -366,7 +366,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         //reset everything.
         missles.clear();
         player.resetScore();
-        player.setY(HEIGHT / 2);
+        player.setY(SCREENHEIGHT / 2);
         player = new Hero(BitmapFactory.decodeResource(getResources(),
                 R.mipmap.helicopter_metalslug), 146, 91, 4);
 
@@ -389,14 +389,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         numMissles ++;
 
         //making three of these to avoid situations where projectiles are made on the smae spot
-        int randomNum1 = random.nextInt(HEIGHT - 70);
-        int randomNum2 = random.nextInt(HEIGHT - 70);
-        int randomNum3 = random.nextInt(HEIGHT - 70);
+        int randomNum1 = random.nextInt(SCREENHEIGHT - 70);
+        int randomNum2 = random.nextInt(SCREENHEIGHT - 70);
+        int randomNum3 = random.nextInt(SCREENHEIGHT - 70);
 
         //once in 10 missles, make a big missle
         if (numMissles % 10 == 0 && numMissles != 0){
             missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.large_missles), WIDTH + 10, randomNum1, 270, 68, 12);
+                    R.mipmap.large_missles), SCREENWIDTH + 10, randomNum1, 270, 68, 12);
             missle.setID(3);
             missles.add(missle);
         }
@@ -410,14 +410,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             //made my game more laggy so that's why i chose this.
             if (randompowerup == 0){
                 missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.saucer_powerup), WIDTH + 10, randomNum2, 46, 40, 1);
+                        R.mipmap.saucer_powerup), SCREENWIDTH + 10, randomNum2, 46, 40, 1);
                 missle.setID(1);
                 missles.add(missle);
             }
 
             if (randompowerup == 1){
                 missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.helicopterpowerup), WIDTH + 10, randomNum2, 42, 40, 1);
+                        R.mipmap.helicopterpowerup), SCREENWIDTH + 10, randomNum2, 42, 40, 1);
                 missle.setID(2);
                 missles.add(missle);
             }
@@ -427,7 +427,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         if (numMissles % 10 != 0 && numMissles % 25 != 0){
             missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.missile), WIDTH + 10,randomNum3, 90, 30, 13);
+                    R.mipmap.missile), SCREENWIDTH + 10,randomNum3, 90, 30, 13);
             missle.setID(0);
             missles.add(missle);
         }

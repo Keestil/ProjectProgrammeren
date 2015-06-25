@@ -16,7 +16,7 @@ public class Hero extends Object{
 
         //setting the starting position of the chopper
         x = 100;
-        y = game.HEIGHT / 2;
+        y = game.SCREENHEIGHT / 2;
         y_move = 0;
         score = 0;
         height = h;
@@ -51,7 +51,7 @@ public class Hero extends Object{
 
         //checking the bounds, I want the helicopter to stay above the text score, thats why I have
         //an extra 63.
-        if (y > game.HEIGHT  - spritesheet.getHeight()-y_move){
+        if (y > game.SCREENHEIGHT - spritesheet.getHeight()-y_move){
             y_move = 0;
         }
 
