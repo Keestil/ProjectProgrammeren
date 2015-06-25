@@ -136,9 +136,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             //boolean check for when player is playing, if he isn't the chopper does nothing.
             if ((!player.isPlaying()) && (newgame) && (freeze)){
                 player.setPlaying(true);
+            }
 
             //here we see what happens when the player is playing.
-            } else if(player.isPlaying()){
+            if(player.isPlaying()){
                 player.setUp(true);
                 freeze = false;
             }
@@ -175,6 +176,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             //increases. One can adjust the scoreDifficulty() function for a preferred difficulty-
             //setting.
             if (misslesTimepassed > 750 - scoreDifficulty()){
+
                 //making missles
                 makeMissles();
                 //don't forget to reset your timer
@@ -283,10 +285,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             }
         }
     }
-    //this function checks if rockets and missles collide!
-    public boolean touch(Object missle, Object hero){
 
-        if (Rect.intersects(hero.getRectangle(), missle.getRectangle())){
+    //this function checks if rockets and missles collide!
+    public boolean touch(Object missile, Object hero){
+
+        if (Rect.intersects(hero.getRectangle(), missile.getRectangle())){
             return true;
         }
         return false;
@@ -397,19 +400,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                     R.mipmap.large_missles), WIDTH + 10, randomNum1, 270, 68, 12);
             missle.setID(3);
             missles.add(missle);
-
-            //once in 25 missles, make a random powerup for demo purposes, set this on 75 for the
-            //better game experience
         }
 
-        if (numMissles % 25 == 0 && numMissles !=0){
+        //once in 5 missles, make a random powerup for demo purposes, set this on 25 for the
+        //better game experience
+        if (numMissles % 5 == 0 && numMissles !=0){
             int randompowerup = random.nextInt(2);
 
             //could use switch case, but i prefer this. I noticed that the switch-case
             //made my game more laggy so that's why i chose this.
             if (randompowerup == 0){
                 missle = new Missles(BitmapFactory.decodeResource(getResources(),
-                        R.mipmap.chicken_powerup), WIDTH + 10, randomNum2, 46, 40, 1);
+                        R.mipmap.saucer_powerup), WIDTH + 10, randomNum2, 46, 40, 1);
                 missle.setID(1);
                 missles.add(missle);
             }

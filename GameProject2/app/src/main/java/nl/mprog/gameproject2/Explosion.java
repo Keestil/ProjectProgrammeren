@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 
 public class Explosion extends Object{
 
-    private GamePanel game;
     private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
 

@@ -31,12 +31,6 @@ public class Hero extends Object{
 
         animation.setFrames(cropimage);
         animation.setWaitTime(5);
-
-    }
-
-    //boolean check for flying.
-    public void setUp(boolean b){
-        up = b;
     }
 
     public void update(){
@@ -69,20 +63,19 @@ public class Hero extends Object{
     }
 
     // here we draw the frames
-    public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(),x,y,null);
-    }
+    public void draw(Canvas canvas) { canvas.drawBitmap(animation.getImage(),x,y,null); }
 
-    //all these functions below are pretty obvious
+    //all these functions below are pretty obvious, setUp is to check whether the helicopter must
+    //fly or not
     public int getScore() { return score; }
-    public void setScore(int newScore){
-        score = newScore;
-    }
-    public boolean isPlaying(){
-        return playing;
-    }
+    public boolean isPlaying() { return playing; }
+
+    public void setScore(int newScore) { score = newScore; }
     public void setPlaying(boolean b){
         playing = b;
+    }
+    public void setUp(boolean b){
+        up = b;
     }
     public void resetScore(){
         score = 0;

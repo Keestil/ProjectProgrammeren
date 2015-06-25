@@ -2,20 +2,15 @@ package nl.mprog.gameproject2;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.util.Log;
-
-import java.util.Random;
 
 public class Missles extends Object{
 
-    private int score;
     private long speed;
-    private Random rand = new Random();
     private Spriteslide animation = new Spriteslide();
     private Bitmap spritesheet;
 
     //making missles
-    public Missles(Bitmap bmp, int x, int y, int w, int h,int frames){
+    public Missles(Bitmap bmp, int x, int y, int w, int h, int frames){
         this.x = x;
         this.y = y;
         width = w;
