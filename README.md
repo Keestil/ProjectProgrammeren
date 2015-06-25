@@ -13,10 +13,6 @@ Verder zal er een explosie worden afgespeeld als de speler af is. Behalve afgaan
 
 De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden, dit spel zal ze dan bezighouden zodat ze niet gefrustreerd raken tijdens het wachten voor een sollicitatiegesprek, doktersafspraak, achtbaanrit, etcetera. Dit spel is niet bedoeld om in de vrije tijd te spelen, omdat het aanbod van andere spellen veel te hoog is en deze spellen veel diepere content hebben. 
 
-**Screenshot app:**
-
-![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Gameplay.png)
-
 **Planning project:**
 
 - week 1: Gamloop bouwen.
@@ -26,6 +22,14 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 - week 3: Highscores en muziek implementeren
 
 - week 4: alles wat in week 2-3 niet helemaal af was afmaken en verslag maken
+
+**Screenshot app:**
+
+![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Gameplay.png)
+
+**Structuur app:**
+
+![Structuur app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Sturtuur.png)
 
 **Licentie:**
 
