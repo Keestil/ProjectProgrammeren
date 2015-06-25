@@ -27,7 +27,7 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 
 ![Structuur app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/Structuur.png)
 
-**Screenshot app:**
+**Screenshots app:**
 
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay1.png)
 ![Gameplay app](https://github.com/Keestil/ProjectProgrammeren/blob/master/doc/gameplay3.png)
