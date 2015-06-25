@@ -151,6 +151,7 @@ Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten 
 
 *Eventueele tekortkomingen:*
 
+- Toegankelijkheid voor elke mobiel, niet alleen de nexus 5.
 - Variatie in power-ups.
 - Leaderboards voor alle gebruikers van de app, dus op verschillende telefoons.
 - Muren boven en onder waar de speler door kan sterven.
@@ -165,6 +166,7 @@ Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten 
 - http://obviam.net/index.php/the-android-game-loop/
 - http://obviam.net/index.php/sprite-animation-with-android/
 - http://stackoverflow.com/
+- http://www.edu4java.com/en/androidgame/androidgame1.html
 - https://www.youtube.com/watch?v=V1ocJmXeQ28
 - https://www.youtube.com/watch?v=I1qTZaUcFX0
 - https://www.youtube.com/watch?v=rJcm5Oyi3YA
