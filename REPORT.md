@@ -168,5 +168,5 @@ Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten 
 - https://www.youtube.com/watch?v=V1ocJmXeQ28
 - https://www.youtube.com/watch?v=I1qTZaUcFX0
 - https://www.youtube.com/watch?v=rJcm5Oyi3YA
-- http://developer.android.com/reference/packages.html
+- http://developer.android.com/develop/index.html
 
