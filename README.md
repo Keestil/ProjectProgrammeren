@@ -14,9 +14,12 @@ De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden
 *Planning voordat ik het project begon:*
 
 -week 1: sprites maken en achtergrond maken, ook proberen sprites te laten bewegen!
+
 -week 2: Sprites in de lucht laten hangen en zwaartekracht maken, ook klikken moet dan werken. Verder moeten projectielen al
 vliegen op niet-willekeurige manier
+
 -week 3: Highscores bouwen met naam
+
 -week 4: puntjes op de i en presenteren
 
 
