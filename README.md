@@ -9,20 +9,22 @@ animatie maakt alsof het een vliegende sprite is. Verder ga ik aan de projectiel
 
 Het idee is om van de rechterkant van het scherm projectielen af te vuren die de speler moet ontwijken. Voor elk projectiel dat ontweken wordt krijgt de speler punten. Als de speler dan uiteindelijk af is, zal de highscore opgeslagen worden en in het scherm "new best" staan of "you suck". Verder zal er een explosie worden afgespeeld als de speler af is. Behalve afgaan kan de speler ook powerups pakken, waarbij een H de speler in een helicopter transformeert en een C de speler in een schotel verandert. Als de speler af is zal het spel opnieuw beginnen en de speler een helicopter zijn(als hij een schotel was).
 
-De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden, dit spel zal ze dan bezighouden zodat ze niet gefrustreerd raken door verveling.
+De doelgroep van deze app zijn mensen die moeten wachten en de tijd moeten doden, dit spel zal ze dan bezighouden zodat ze niet gefrustreerd raken tijdens het wachten voor een sollicitatiegesprek, doktersafspraak, achtbaanrit, etcetera. Dit spel is niet bedoeld om in de vrije tijd te spelen, omdat het aanbod van andere spellen veel te hoog is en deze spellen veel diepere content hebben. 
+
+**Schets van de app:**
+
 
 *Planning voordat ik het project begon:*
 
--week 1: sprites maken en achtergrond maken, ook proberen sprites te laten bewegen!
+- week 1: sprites maken en achtergrond maken, ook proberen sprites te laten bewegen!
 
--week 2: Sprites in de lucht laten hangen en zwaartekracht maken, ook klikken moet dan werken. Verder moeten projectielen al
-vliegen op niet-willekeurige manier
+- week 2: Sprites in de lucht laten hangen en zwaartekracht maken, ook klikken moet dan werken. Verder moeten projectielen al
+vliegen op niet-willekeurige manier.
 
--week 3: Highscores bouwen met naam
+- week 3: Highscores bouwen met naam.
 
--week 4: puntjes op de i en presenteren
+- week 4: puntjes op de i en presenteren.
 
+**Licencie:**
 
-**License:**
-
-Copyright (c) 2015 KeesTil, some rights reserved to SNK Playmore
+Copyright (c) 2015 KeesTil, sommige rechten verleend aan SNK Playmore
