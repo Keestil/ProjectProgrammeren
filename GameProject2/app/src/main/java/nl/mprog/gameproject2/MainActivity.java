@@ -58,15 +58,15 @@ public class MainActivity extends Activity{
         switch (item.getItemId()){
             case R.id.soundOn:
                 SharedPreferences.Editor editor = data.edit();
-                editor.putInt("backgroundSound",0);
-                editor.putInt("explosionSound",0);
+                editor.putInt("backgroundSound",1);
+                editor.putInt("explosionSound",1);
                 editor.commit();
                 return true;
 
             case R.id.soundOf:
                 SharedPreferences.Editor editor1 = data.edit();
-                editor1.putInt("backgroundSound", 1);
-                editor1.putInt("explosionSound",1);
+                editor1.putInt("backgroundSound", 0);
+                editor1.putInt("explosionSound",0);
                 editor1.commit();
                 return true;
 
@@ -79,7 +79,8 @@ public class MainActivity extends Activity{
     @Override
     protected void onPause(){
         super.onPause();{
-            if(data.getInt("backgroundSound",0) == 0){
+
+            if(data.getInt("backgroundSound", 1) == 1) {
                 backgroundSound.stop();
                 explosionSound.stop();
             }

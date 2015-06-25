@@ -26,7 +26,7 @@ public class Missles extends Object{
         spritesheet = bmp;
 
         //note that i crop a spritesheet here with x frames where x is an integer
-        for(int i = 0; i<cropimage.length;i++){
+        for (int i = 0; i<cropimage.length;i++){
             cropimage[i] = Bitmap.createBitmap(spritesheet, 0, i*height, width, height);
         }
 

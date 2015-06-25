@@ -13,7 +13,6 @@ public class Hero extends Object{
     private boolean playing;
 
     public Hero(Bitmap bmp, int w, int h, int frames){
-
         x = 100;
         y = game.HEIGHT / 2;
         y_move = 0;
@@ -46,11 +45,11 @@ public class Hero extends Object{
         animation.update();
 
         //Flying up or down
-        if(up){
+        if (up){
             y_move = -20;
         }
 
-        if(!up){
+        if (!up){
             y_move = 20;
         }
 
@@ -71,28 +70,20 @@ public class Hero extends Object{
 
     // here we draw the frames
     public void draw(Canvas canvas){
-
         canvas.drawBitmap(animation.getImage(),x,y,null);
     }
 
     //all these functions below are pretty obvious
-    public int getScore(){
-
-        return score;
-    }
-
+    public int getScore() { return score; }
     public void setScore(int newScore){
         score = newScore;
     }
-
     public boolean isPlaying(){
         return playing;
     }
-
     public void setPlaying(boolean b){
         playing = b;
     }
-
     public void resetScore(){
         score = 0;
     }

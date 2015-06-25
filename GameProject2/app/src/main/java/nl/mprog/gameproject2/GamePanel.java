@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 //import android.media.MediaPlayer;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,7 +23,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     //soundfragments and savestate
     private MediaPlayer coolMusic;
     private MediaPlayer boomSound;
-    private SharedPreferences saveBest;
+    private SharedPreferences saveState;
 
     //here we just make the width and height, adjust this if playing on another mobile!
     public static final int WIDTH = 900;
@@ -44,7 +45,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Explosion explosion;
 
     //the booleans
-    private boolean startAgain = true;
+    private boolean freeze = true;
     private boolean newgame = true;
     private boolean playMusic = false;
     private boolean playSound = false;
@@ -74,7 +75,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         //importing data from mainactivity class
         coolMusic = backgroundSound;
         boomSound = explosionSound;
-        saveBest = data;
+        saveState = data;
 
         //add the callback to the surfaceholder to intercept events
         getHolder().addCallback(this);
@@ -133,13 +134,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if (event.getAction() == MotionEvent.ACTION_DOWN){
 
             //boolean check for when player is playing, if he isn't the chopper does nothing.
-            if ((!player.isPlaying()) && (newgame) && (startAgain)){
+            if ((!player.isPlaying()) && (newgame) && (freeze)){
                 player.setPlaying(true);
 
             //here we see what happens when the player is playing.
             } else if(player.isPlaying()){
                 player.setUp(true);
-                startAgain = false;
+                freeze = false;
             }
             return true;
         }
@@ -148,7 +149,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if (event.getAction() == MotionEvent.ACTION_UP){
             player.setUp(false);
             playMusic = true;
-            startAgain = false;
+            freeze = false;
             return true;
         }
         return super.onTouchEvent(event);
@@ -159,22 +160,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         //first we check whether the music must be played. Note the while loop must be used because
         //of the gamethread.
-        if(playMusic && saveBest.getInt("backgroundSound",0)==0 && player.isPlaying()){
-            while (musicCounter < 1){
-                coolMusic.setLooping(true);
-                coolMusic.start();
-                musicPlayed = true;
-                musicCounter++;
-            }
-        }
-
-        if(playMusic && saveBest.getInt("backgroundSound", 0)==1 && player.isPlaying()){
-            if(musicPlayed){
-                coolMusic.pause();
-                coolMusic.seekTo(0);
-                musicCounter = 0;
-            }
-        }
+        playMusic();
 
         if (player.isPlaying()){
 
@@ -200,10 +186,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             for (int i = 0; i < missles.size(); i++){
 
                 //can make a function out of this, Adjust missleSpeed when missles are made.
-                if(missles.get(i).getmissleSpeed()<50){
+                if (missles.get(i).getmissleSpeed()<50){
                     missles.get(i).setmissleSpeed((long) (missles.get(i).getmissleSpeed() + (score / (float) 100)));
 
-                }else{
+                } else{
                     missles.get(i).setmissleSpeed((long) 50);
                 }
 
@@ -254,47 +240,51 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 }
             }
 
-        }if(!player.isPlaying()){
+        }if (!player.isPlaying()){
 
             //check whether the player starts again. the first time we lose the player
             //will definitely get into this loop
-            if(!startAgain){
+            if (!freeze){
 
                 //freeze game. in this freezed state we want to do a few things.
                 //we want to detonate the bomb
                 // stop the music
                 // and play the explosionsound,
                 newgame = false;
-                startAgain = true;
+                freeze = true;
                 deadTime = System.nanoTime();
                 explosion.setY(player.getY() - 120);
                 detonate = true;
                 playSound = true;
-                coolMusic.pause();
-                coolMusic.seekTo(0);
-            }
 
+                //check wheter de music has been played and if the music is playing.
+                if(musicPlayed) {
+                    coolMusic.pause();
+                    coolMusic.seekTo(0);
+                }
+            }
             deadTimepassed = (System.nanoTime() - deadTime)/1000000;
             explosion.update();
 
-            if(playSound && saveBest.getInt("explosionSound",0) == 0){
+            if (playSound && saveState.getInt("explosionSound",1) == 1){
                 while(counter<1){
+                    Log.d(">>>>>>", "boomsound");
                     boomSound.start();
                     soundPlayed = true;
                     counter++;
                 }
             }
 
-            if(playSound && saveBest.getInt("explosionSound",0)==1){
+            if (playSound && saveState.getInt("explosionSound",1) == 0){
+                Log.d(">>>>>>", "hi");
                 if(soundPlayed){
-                    boomSound.pause();
-                    boomSound.seekTo(0);
                     counter = 0;
+                    soundPlayed = false;
                 }
             }
 
             //here the game freezes before starting a new game
-            if((deadTimepassed > 2000) && (!newgame)){
+            if ((deadTimepassed > 2000) && (!newgame)){
                 newGame();
             }
         }
@@ -311,7 +301,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     //drawing method
     @Override
     public void draw(Canvas canvas){
-
         canvas.drawBitmap(scaledbmp, 0, 0, null);
         player.draw(canvas);
 
@@ -319,7 +308,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             m.draw(canvas);
         }
 
-        if(detonate){
+        if (detonate){
             explosion.draw(canvas);
         }
 
@@ -328,22 +317,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     //paint method for texts
     public void textView(Canvas canvas){
-
         text = new Paint();
         text.setColor(Color.BLACK);
         text.setTextSize(30);
         canvas.drawText("SCORE: " + player.getScore(),WIDTH - 50,HEIGHT - 70,text);
-        canvas.drawText("BEST: " + saveBest.getInt("new best",0), WIDTH - 50, HEIGHT - 20, text);
+        canvas.drawText("BEST: " + saveState.getInt("new best",0), WIDTH - 50, HEIGHT - 20, text);
 
         //this is written in the beginning state
-        if((!player.isPlaying()) && (startAgain) && (newgame)){
+        if ((!player.isPlaying()) && (freeze) && (newgame)){
             canvas.drawText("TOUCH THE SCREEN TO START THE GAME",WIDTH/2,HEIGHT/2,text);
             canvas.drawText("PRESS TO GO UP, RELEASE TO GO DOWN",WIDTH/2,(HEIGHT/2)+70,text);
             canvas.drawText("SOUND CAN BE ADJUSTED IN THE MENU",WIDTH/2,(HEIGHT/2)+420,text);
         }
 
         //this is writen when player and missle collide
-        if((!player.isPlaying()) && (startAgain) && (!newgame)){
+        if ((!player.isPlaying()) && (freeze) && (!newgame)){
             suckText = new Paint();
             suckText.setColor(Color.RED);
             suckText.setTextSize(30);
@@ -353,81 +341,36 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             bestText.setTextSize(30);
             canvas.drawText("SCORE: " + player.getScore(), WIDTH - 50, HEIGHT - 70,text);
 
-            if(player.getScore() <= saveBest.getInt("new best",0)){
+            if (player.getScore() <= saveState.getInt("new best",0)){
                 canvas.drawText("YOU SUCK!",WIDTH/2,HEIGHT/2,suckText);
             }
 
-            if(player.getScore() > saveBest.getInt("new best",0)){
+            if (player.getScore() > saveState.getInt("new best",0)){
                 canvas.drawText("NEW BEST!",WIDTH/2,HEIGHT/2,bestText);
             }
-        }
-    }
-
-    //function that adjusts speed of making missles
-    public int scoreDifficulty(){
-
-        if (score < 550) {
-            difficultyScore = score;
-
-        } else {
-            difficultyScore = 550;
-        }
-        return difficultyScore;
-    }
-
-    public void makeMissles(){
-        numMissles ++;
-        int randomNum = random.nextInt(HEIGHT - 70);
-
-        //once in 10 missles, make a big missle
-        if(numMissles % 10 == 0 && numMissles != 0){
-            missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
-            missle.setID(3);
-            missles.add(missle);
-
-            //once in 25 missles, make a random powerup for demo purposes, set this on 75 for the
-            //better game experience
-        }if(numMissles % 25 == 0 && numMissles !=0){
-            int randompowerup = random.nextInt(2);
-
-            if(randompowerup == 0){
-                missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
-                missle.setID(1);
-                missles.add(missle);
-
-            } if(randompowerup == 1){
-                missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
-                missle.setID(2);
-                missles.add(missle);
-            }
-
-            //make small missles in all other cases
-        } if(numMissles % 10 !=0 && numMissles % 25 != 0){
-            missle = new Missles(BitmapFactory.decodeResource(getResources(), R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
-            missle.setID(0);
-            missles.add(missle);
         }
     }
 
     //starts a new game
     public void newGame(){
 
-        if(saveBest.getInt("boomSound", 0) == 0){
+        //check if the music has been played and is playing
+        if (saveState.getInt("boomSound", 1) == 1 && musicPlayed){
             boomSound.pause();
             boomSound.seekTo(0);
         }
 
-        missles.clear();
-
-        if(player.getScore() > saveBest.getInt("new best",0)){
+        if (player.getScore() > saveState.getInt("new best",0)){
             best = player.getScore();
-            SharedPreferences.Editor editor = saveBest.edit();
+            SharedPreferences.Editor editor = saveState.edit();
             editor.putInt("new best",best);
             editor.commit();
         }
+        missles.clear();
         player.resetScore();
         player.setY(HEIGHT / 2);
-        player = new Hero(BitmapFactory.decodeResource(getResources(), R.mipmap.helicopter_metalslug), 146, 91, 4);
+        player = new Hero(BitmapFactory.decodeResource(getResources(),
+                R.mipmap.helicopter_metalslug), 146, 91, 4);
 
         score = 0;
         counter = 0;
@@ -440,5 +383,87 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         detonate = false;
         playSound = false;
         playMusic = false;
+    }
+    
+    //----------------------------------------Helper functions--------------------------------------
+
+    //makes missles in a list
+    public void makeMissles(){
+        numMissles ++;
+        int randomNum = random.nextInt(HEIGHT - 70);
+
+        //once in 10 missles, make a big missle
+        if (numMissles % 10 == 0 && numMissles != 0){
+            missle = new Missles(BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.large_missles), WIDTH + 10, randomNum, 270, 68, 12);
+            missle.setID(3);
+            missles.add(missle);
+
+            //once in 25 missles, make a random powerup for demo purposes, set this on 75 for the
+            //better game experience
+        }
+
+        if (numMissles % 25 == 0 && numMissles !=0){
+            int randompowerup = random.nextInt(2);
+
+            //could use switch case, but i prefer this
+            if (randompowerup == 0){
+                missle = new Missles(BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.chicken_powerup), WIDTH + 10, randomNum, 46, 40, 1);
+                missle.setID(1);
+                missles.add(missle);
+            }
+
+            if (randompowerup == 1){
+                missle = new Missles(BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.helicopterpowerup), WIDTH + 10, randomNum, 42, 40, 1);
+                missle.setID(2);
+                missles.add(missle);
+            }
+
+            //make small missles in all other cases
+        }
+
+        if (numMissles % 10 !=0 && numMissles % 25 != 0){
+            missle = new Missles(BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.missile), WIDTH + 10,randomNum, 90, 30, 13);
+            missle.setID(0);
+            missles.add(missle);
+        }
+    }
+
+    //function that adjusts speed of making missles
+    public int scoreDifficulty(){
+
+        if (score < 550){
+            difficultyScore = score;
+
+        } else{
+            difficultyScore = 550;
+        }
+        return difficultyScore;
+    }
+
+    public void playMusic(){
+
+        //Here we play the music and remember that we played it with musicPlayed boolean
+        if (playMusic && saveState.getInt("backgroundSound",1)==1 && player.isPlaying()){
+            while (musicCounter < 1){
+                coolMusic.setLooping(true);
+                coolMusic.start();
+                musicPlayed = true;
+                musicCounter++;
+            }
+        }
+
+        //here we say, pause de music if you remembered we played it, else do nothing
+        if (playMusic && saveState.getInt("backgroundSound", 1)==0 && player.isPlaying()){
+            if (musicPlayed){
+                coolMusic.pause();
+                coolMusic.seekTo(0);
+                musicCounter = 0;
+                musicPlayed = false;
+            }
+        }
     }
 }

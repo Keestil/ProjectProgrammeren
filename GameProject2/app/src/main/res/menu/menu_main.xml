@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/soundOf"
-        android:title="Set Sound Of"
+        android:title="Set Sound Off"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

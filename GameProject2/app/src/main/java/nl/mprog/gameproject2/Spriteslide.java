@@ -31,13 +31,13 @@ public class Spriteslide{
 
         //If the time passed our waitTime we want to go to the next frame and start the timer again
         long timePassed = (System.nanoTime()-startTime)/1000000;
-        if(timePassed>waitTime){
+        if (timePassed>waitTime){
             currentFrame++;
             startTime = System.nanoTime();
         }
 
         //Here we want to start at the first frame again
-        if(currentFrame == frames.length){
+        if (currentFrame == frames.length){
             currentFrame = 0;
         }
     }
@@ -46,5 +46,4 @@ public class Spriteslide{
     public Bitmap getImage(){
         return frames[currentFrame];
     }
-
 }

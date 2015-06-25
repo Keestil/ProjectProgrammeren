@@ -24,8 +24,7 @@ public class GameThread extends Thread{
         long waitTime;
         long targetTime = 1000/FPS;
 
-        while(running){
-
+        while (running){
             startTime = System.nanoTime();
             canvas = null;
 
@@ -47,11 +46,11 @@ public class GameThread extends Thread{
 
                 // in case of an exception the surface is not left in
                 // an inconsistent state
-                if(canvas!=null){
+                if (canvas!=null){
                     try{
                         surfaceHolder.unlockCanvasAndPost(canvas);
                     }
-                    catch(Exception e){
+                    catch (Exception e){
                         e.printStackTrace();
                     }
                 }
@@ -63,7 +62,7 @@ public class GameThread extends Thread{
                 // send the thread to sleep for a short period, we don't want the game to run
                 // quicker then intended.
                 this.sleep(waitTime);
-            }catch(Exception e){}
+            }catch (Exception e){}
         }
     }
 

@@ -10,7 +10,6 @@ public class Explosion extends Object{
     private Bitmap spritesheet;
 
     public Explosion(Bitmap bmp, int w, int h, int frames){
-
         width = w;
         height = h;
 
@@ -30,7 +29,6 @@ public class Explosion extends Object{
     public void update(){
             animation.update();
     }
-
     public void draw(Canvas canvas){
             canvas.drawBitmap(animation.getImage(), x, y, null);
         }
