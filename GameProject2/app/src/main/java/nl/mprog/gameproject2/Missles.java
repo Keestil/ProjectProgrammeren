@@ -38,7 +38,7 @@ public class Missles extends Object{
 
     //draw the animation
     public void draw(Canvas canvas){
-            canvas.drawBitmap(animation.getImage(),x,y,null);
+            canvas.drawBitmap(animation.getFrame(),x,y,null);
     }
 
     //get the speed of the missles

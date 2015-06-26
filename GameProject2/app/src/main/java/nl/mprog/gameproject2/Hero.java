@@ -65,7 +65,7 @@ public class Hero extends Object{
     }
 
     // here we draw the frames
-    public void draw(Canvas canvas) { canvas.drawBitmap(animation.getImage(),x,y,null); }
+    public void draw(Canvas canvas) { canvas.drawBitmap(animation.getFrame(),x,y,null); }
 
     //all these functions below are pretty obvious, setUp is to check whether the helicopter must
     //fly or not

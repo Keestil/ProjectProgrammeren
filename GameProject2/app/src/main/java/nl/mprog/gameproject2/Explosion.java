@@ -29,7 +29,7 @@ public class Explosion extends Object{
             animation.update();
     }
     public void draw(Canvas canvas){
-            canvas.drawBitmap(animation.getImage(), x, y, null);
+            canvas.drawBitmap(animation.getFrame(), x, y, null);
         }
 }
 
