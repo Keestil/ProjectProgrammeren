@@ -131,7 +131,7 @@ Ten slotte wou ik toentertijd ook een bewegende achtergrond maken, echter vond i
 
 Wat ik er nog bij heb gedaan is de optie om het geluid aan/uit te kunnen zetten in het menu. Ik merkte dat het geluid een beetje irritant begon te worden, dus deze optie wou ik graag toevoegen aan de app.
 
-**Korte samenvatting**
+**Korte samenvatting:**
 
 *Mijn App kan de volgende dingen:*
 
