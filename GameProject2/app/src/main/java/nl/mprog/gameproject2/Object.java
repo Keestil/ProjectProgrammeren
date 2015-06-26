@@ -14,18 +14,23 @@ public abstract class Object{
     public void setX(int x){
         this.x = x;
     }
+
     public void setY(int y){
             this.y = y;
     }
+
     public void setID(int ID){
         this.ID = ID;
     }
+
     public int getX(){
             return x;
     }
+
     public int getY(){
             return y;
     }
+
     public int getID(){
         return ID;
     }
@@ -33,6 +38,7 @@ public abstract class Object{
     public int getHeight(){
             return height;
     }
+
     public int getWidth(){
         return width;
     }

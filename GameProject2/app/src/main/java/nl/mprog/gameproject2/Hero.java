@@ -15,7 +15,7 @@ public class Hero extends Object{
     public Hero(Bitmap bmp, int w, int h, int frames){
 
         //setting the starting position of the chopper
-        x = 100;
+        x = 50;
         y = game.SCREENHEIGHT / 2;
         y_move = 0;
         score = 0;
@@ -69,16 +69,26 @@ public class Hero extends Object{
 
     //all these functions below are pretty obvious, setUp is to check whether the helicopter must
     //fly or not
-    public int getScore() { return score; }
-    public boolean isPlaying() { return playing; }
+    public int getScore(){
+        return score;
+    }
 
-    public void setScore(int newScore) { score = newScore; }
+    public boolean isPlaying(){
+        return playing;
+    }
+
+    public void setScore(int newScore){
+        score = newScore;
+    }
+
     public void setPlaying(boolean b){
         playing = b;
     }
+
     public void setUp(boolean b){
         up = b;
     }
+
     public void resetScore(){
         score = 0;
     }

@@ -43,5 +43,7 @@ public class Spriteslide{
     }
 
     //These next two functions are pretty obvious
-    public Bitmap getFrame() { return frames[currentFrame]; }
+    public Bitmap getFrame(){
+        return frames[currentFrame];
+    }
 }
